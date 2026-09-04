@@ -1,0 +1,19 @@
+---
+term: Context window
+slug: context-window
+summary: "The working memory of a single request. Everything counts toward it — system prompt, messages, tool results, images, tool definitions, and the generated output."
+analogy: "A desk, not a filing cabinet. What is on it right now is all the model can see."
+category: Context
+relatedTerms: [Context rot, Token, Prompt caching]
+lessons: [w1.m01.b03]
+sources:
+  - url: https://platform.claude.com/docs/en/build-with-claude/context-windows
+    title: Context windows
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+---
+
+The only channel for anything the training data lacks. Two edges behave differently: input alone exceeding the window returns a 400, while generation that *reaches* the limit stops with a distinct stop reason and returns a truncated response that looks complete unless you check.
+
+Caching changes what you pay for a prefix, never whether it occupies the window. It is a cost optimisation, not a capacity one.

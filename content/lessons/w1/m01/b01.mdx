@@ -1,0 +1,159 @@
+---
+id: w1.m01.b01
+title: What generative AI actually is, and what a harness adds
+week: 1
+weekTitle: Core
+module: 1
+moduleTitle: Mechanics Behind Generative AI
+bullet: 1
+summary: A model only continues text. Everything else you think of as "the AI" — tools, files, memory, loops — is a program wrapped around it, and that program is where your leverage is.
+personas: [junior, mid, senior, lead, cto]
+prerequisites: []
+related: [w1.m01.b05, w1.m02.b02]
+tags: [harness, tools, agentic, foundations]
+defines: [Harness, Tool call, Agentic, Completion]
+sources:
+  - url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview
+    title: Tool use overview
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+  - url: https://platform.claude.com/docs/en/about-claude/pricing
+    title: Pricing — tool use pricing
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+volatility: medium
+estMinutes: 12
+crashCourse: 1
+checks:
+  - q: You give a model a "file editing tool" and it edits a file. What actually performed the edit?
+    a: Your program did. The model emitted a structured request naming a tool and its arguments; the harness matched that request to a function, ran it, and appended the result to the context. The model never touched the filesystem.
+    hint: Ask which process had a file descriptor open.
+  - q: Why does adding a tool to a request cost money even if the model never calls it?
+    a: Tool definitions are part of the input. Their names, descriptions and schemas are serialised into the request and billed as input tokens, and the API also inserts a tool-use system prompt — 286 to 675 tokens depending on the model, before your own definitions.
+---
+
+A generative model does exactly one thing: given a sequence of tokens, it produces a probability distribution over what comes next. It has no memory between calls, no access to your filesystem, no ability to run anything. Every capability you associate with "an AI that can do things" — reading your repository, calling an API, remembering yesterday's conversation, working through a task over twenty steps — belongs to the **program wrapped around the model**, not to the model.
+
+That program is called a <Term slug="harness">harness</Term>, and understanding where the boundary sits is the single most useful thing in this course. Almost every confusing behaviour, every surprising cost, and every security incident in AI-assisted engineering lives at that boundary.
+
+<Plainly>
+Picture a very well-read person locked in a room with no windows, no phone, and no memory of yesterday. You can slide notes under the door, and they slide notes back. They can write beautifully about almost anything — but they cannot look anything up, cannot check whether what they wrote is true, and will not remember this conversation tomorrow.
+
+The harness is the person standing outside the door: reading the notes, noticing when one says "please look up X", actually looking up X, and sliding the answer back in. From the outside it looks like the person in the room has internet access. They don't. The runner does.
+</Plainly>
+
+## The model's actual interface
+
+Strip away every product surface and the interface is this: you send a list of messages, you get back a <Term slug="completion">completion</Term>. Stateless. Send the same input twice and nothing carries over from the first call — if the model appears to remember your last message, it is because the harness sent the entire conversation again.
+
+This has a consequence people find surprising: **a long conversation is not cheaper than a short one.** Every turn resends everything before it. What feels like an ongoing dialogue is a series of independent calls, each one larger than the last.
+
+## What the harness adds
+
+A harness is responsible for everything the model cannot do:
+
+**Assembling context.** Deciding what goes into the request — system instructions, conversation history, file contents, retrieved documents, tool definitions. This is the harness's most consequential job, and the rest of Week 1 is largely about doing it well.
+
+**Executing tools.** The model cannot call anything. What it can do is emit a structured request: *"I would like to call `read_file` with `{path: 'src/index.ts'}`."* The harness matches that against a real function, runs it, and appends the result as another message. Then it calls the model again with the longer conversation.
+
+**Running the loop.** The model produces one response. Everything multi-step — "explore the codebase, find the bug, fix it, run the tests" — is the harness calling the model repeatedly, feeding each result back in, and deciding when to stop.
+
+**Enforcing policy.** Which tools exist, what they may touch, what needs approval, what is refused outright. The model has no authority of its own; it has exactly the authority the harness grants it.
+
+## The tool call, precisely
+
+<Diagram
+  caption="The loop that makes a stateless model look agentic. Note that nothing crosses from the model to the tool directly."
+  alt="A cycle of four boxes. Harness sends assembled context to Model. Model returns a structured tool-call request naming a tool and arguments. Harness validates the request and executes the matching function. The function returns a result, which the Harness appends to the context and sends to the Model again. The loop repeats until the model returns a plain answer instead of a tool call."
+>
+  <svg viewBox="0 0 600 190" width="100%" height="190" role="img" aria-hidden="true">
+    <ArrowDefs />
+    <rect x="30" y="60" width="150" height="60" rx="10" fill="var(--surface-sunken)" stroke="var(--border-strong)" strokeWidth="1.25" />
+    <text x="105" y="86" textAnchor="middle" fontSize="13" fontWeight="600" fill="var(--text)">Harness</text>
+    <text x="105" y="103" textAnchor="middle" fontSize="11" fill="var(--text-muted)">your program</text>
+
+    <rect x="240" y="60" width="150" height="60" rx="10" fill="var(--surface-sunken)" stroke="var(--border-strong)" strokeWidth="1.25" />
+    <text x="315" y="86" textAnchor="middle" fontSize="13" fontWeight="600" fill="var(--text)">Model</text>
+    <text x="315" y="103" textAnchor="middle" fontSize="11" fill="var(--text-muted)">stateless</text>
+
+    <rect x="450" y="60" width="120" height="60" rx="10" fill="var(--surface-sunken)" stroke="var(--border-strong)" strokeWidth="1.25" />
+    <text x="510" y="86" textAnchor="middle" fontSize="13" fontWeight="600" fill="var(--text)">Tool</text>
+    <text x="510" y="103" textAnchor="middle" fontSize="11" fill="var(--text-muted)">real code</text>
+
+    <path d="M182 78 L236 78" fill="none" stroke="var(--primary)" strokeWidth="1.5" markerEnd="url(#arrow-accent)" />
+    <text x="209" y="52" textAnchor="middle" fontSize="11" fill="var(--text-muted)">context</text>
+    <path d="M236 104 L182 104" fill="none" stroke="var(--primary)" strokeWidth="1.5" markerEnd="url(#arrow-accent)" />
+    <text x="209" y="128" textAnchor="middle" fontSize="11" fill="var(--text-muted)">tool call</text>
+
+    <path d="M392 78 L446 78" fill="none" stroke="var(--border-strong)" strokeWidth="1.25" markerEnd="url(#arrow)" />
+    <text x="419" y="52" textAnchor="middle" fontSize="11" fill="var(--text-muted)">invoke</text>
+    <path d="M446 104 L392 104" fill="none" stroke="var(--border-strong)" strokeWidth="1.25" markerEnd="url(#arrow)" />
+    <text x="419" y="128" textAnchor="middle" fontSize="11" fill="var(--text-muted)">result</text>
+
+    <path d="M105 130 L105 165 L510 165 L510 130" fill="none" stroke="var(--border)" strokeWidth="1" strokeDasharray="4 3" />
+    <text x="307" y="182" textAnchor="middle" fontSize="11" fill="var(--text-muted)">no direct path — the harness mediates every call</text>
+  </svg>
+</Diagram>
+
+Two properties of this loop matter more than they look:
+
+**The result becomes context.** A tool result is not a return value the model "receives" privately. It is appended to the conversation as text, and from that point on it is indistinguishable from anything else in the window. That is the whole basis of prompt injection: content fetched by a tool sits alongside your instructions with no marker saying which is which.
+
+**Tools cost tokens even unused.** Every tool definition — name, description, JSON schema — is serialised into every request. The API also inserts a tool-use system prompt: between 286 and 675 input tokens depending on the model, before your own definitions. A harness with forty tools declared is paying for forty tool definitions on every single call.
+
+<ForEngineers>
+The wire shape is a discriminated union in the content array. The model returns `content: [{type: "tool_use", id, name, input}]` with `stop_reason: "tool_use"`. You reply with a user message containing `{type: "tool_result", tool_use_id, content}`. Nothing about this is special-cased in the model's forward pass — it is text that the model was trained to produce in a particular structure, and the API validates against your schema.
+
+This explains several behaviours that otherwise look like bugs:
+
+- **A tool call in the visible text.** If the model produces the *description* of a call as prose instead of a structured block, no call happens and nothing errors. The turn succeeds and the loop silently does nothing.
+- **Parallel calls.** One assistant message can contain several `tool_use` blocks. Return every corresponding `tool_result` in a *single* user message — splitting them across messages trains the model, within that conversation, to stop making parallel calls.
+- **Errors are content, not exceptions.** A failed tool returns a `tool_result` with `is_error: true`. Dropping it entirely leaves the model with a call that never resolved, and it will usually retry.
+
+The design consequence: a tool's `description` is a prompt. It is the only thing telling the model when to reach for it. Tool selection quality is prompt quality, and the most common cause of "the agent didn't use the tool" is a description that reads like API documentation rather than instruction.
+</ForEngineers>
+
+<ForLeads>
+The strategic read: **the model is the commodity and the harness is the product.** Model capability is bought from a provider at a published price, and every competitor can buy the same thing next quarter. What differentiates one team's results from another's is the harness — what context it assembles, what tools it exposes, what it verifies before accepting output.
+
+That reframes several decisions:
+
+- **Provider lock-in is smaller than it feels**, if your harness is yours. Configuration, tool definitions, and workflows are portable; the model behind them is a setting. Teams that build directly against one vendor's proprietary agent framework give this up voluntarily.
+- **The cost curve is under your control.** Token spend is driven by what the harness puts in the window on each call, not by the model's list price. A team whose harness resends forty tool definitions and an unpruned history on every turn will pay several times more than one that doesn't, on the identical model.
+- **The security boundary is yours too.** The model has no authority. Whatever an AI system can reach, your harness granted it. This is good news: it means the controls are ordinary engineering controls — permissions, allowlists, sandboxes — rather than something exotic requiring a new discipline.
+</ForLeads>
+
+## Configuration, and what "custom tools" really means
+
+Most harnesses expose the same knobs, whatever they call them: which model, what standing instructions, which tools are available, what needs approval, what files to load automatically. Learning one harness's vocabulary transfers to the others, because they are all configuring the same four things — model, context, tools, authority.
+
+Underneath the branding, **agentic tooling** is that same small set: a loop, a tool registry, a permission model, and somewhere to keep state between turns. Products differentiate on ergonomics — how easily you add a tool, how approval is presented, how state survives a restart — not on having invented a different mechanism. Judge a new agentic tool by asking what it does about those four things, and the marketing falls away quickly.
+
+"Custom tools" sounds like a deep integration. It is a function with a JSON schema and a good description. The engineering difficulty is never in the plumbing; it is in choosing the right granularity, writing a description the model interprets correctly, and returning results the model can act on. A tool that returns a 4,000-line JSON blob is technically working and practically useless — it has spent your context window to tell the model something it now has to search.
+
+<Callout tone="danger" title="Don't let tool output reach an interpreter unchecked">
+A tool result is text in the context window with no privilege marker. If your harness lets model output flow into a shell, an `eval`, a SQL string, or a template renderer, then instructions embedded in anything a tool fetched — a web page, an issue comment, a dependency's README — execute with your process's authority. Parse into a typed structure before use, allowlist the operations a tool can perform, and give anything untrusted a sandbox with no ambient credentials.
+</Callout>
+
+<SelfCheck
+  question="You give a model a 'file editing tool' and it edits a file. What actually performed the edit?"
+  hint="Ask which process had a file descriptor open."
+  answer="Your program did. The model emitted a structured request naming a tool and its arguments; the harness matched that request to a function, ran it, and appended the result to the context. The model never touched the filesystem — it cannot."
+/>
+
+<Lab
+  title="Find the boundary in your own setup"
+  goal="Locate, in whatever AI tool you already use, the exact point where the model stops and your program starts."
+  minutes={15}
+  successLooksLike="You can name at least three tools your harness exposes, and say for one of them what code runs when the model calls it and what authority that code has."
+>
+  <ol>
+    <li>Open the configuration for the AI tool you use most — a config directory, a settings panel, a project file.</li>
+    <li>Find the list of tools or capabilities it makes available. Write down three.</li>
+    <li>For one of them, answer: what process executes it? What can it read? What can it write? Does it need approval?</li>
+    <li>Now find where standing instructions live — the text sent with every request. Read it. That text is in your context window on every single call, and you are paying for it every time.</li>
+  </ol>
+</Lab>
+
+Everything that follows in this week is a closer look at one part of this picture: what the model does with what it receives, what it cannot do regardless of how you ask, and how to assemble context so the loop produces something you would sign your name to.

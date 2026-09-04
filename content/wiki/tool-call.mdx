@@ -1,0 +1,20 @@
+---
+term: Tool call
+slug: tool-call
+aliases: [Tool use, tool_use block]
+summary: "A structured request a model emits naming a tool and its arguments. The harness executes it; the model never does."
+analogy: "An order slip passed through a hatch. Writing the slip is not cooking the meal."
+category: Tools
+relatedTerms: [Function calling, Tool result, Harness]
+lessons: [w1.m01.b01, w1.m01.b05]
+sources:
+  - url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview
+    title: Tool use overview
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+---
+
+The model returns a content block of type `tool_use` carrying an id, a tool name, and an input object, with `stop_reason: "tool_use"`. Your harness matches the name against a real function, runs it, and returns a `tool_result` referencing that id.
+
+Two things follow that catch people out. A model can *describe* a tool call in prose instead of emitting the block — the turn succeeds, nothing runs, and no error is raised. And one assistant message may contain several `tool_use` blocks; all their results must come back in a **single** user message, or the model stops batching calls for the rest of that conversation.

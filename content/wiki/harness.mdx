@@ -1,0 +1,22 @@
+---
+term: Harness
+slug: harness
+aliases: [Agent harness, Scaffold]
+summary: "The program wrapped around a model that assembles context, executes tools, runs the loop, and enforces what the model is allowed to touch."
+analogy: "The model is someone locked in a windowless room who can only pass notes. The harness is the person outside the door who actually fetches things."
+category: Mechanics
+relatedTerms: [Tool call, Context window, Agentic]
+lessons: [w1.m01.b01]
+sources:
+  - url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview
+    title: Tool use overview
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+---
+
+A model is stateless and can execute nothing. Every capability people attribute to "the AI" — reading files, calling APIs, remembering earlier sessions, working through a task over many steps — belongs to the harness.
+
+Harnesses differ in vocabulary and agree on structure. All of them configure the same four things: **which model**, **what context**, **which tools**, and **what authority**. Learning one transfers to the rest, which is why this course teaches the four rather than any single product's settings screen.
+
+The practical consequence for engineers: the harness is where your leverage is, and where your bugs are. The model is bought at a published price and your competitor can buy the same one.

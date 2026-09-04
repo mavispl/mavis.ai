@@ -1,0 +1,19 @@
+---
+term: Context rot
+slug: context-rot
+summary: "The degradation of accuracy and recall as a context window fills. Capacity and usable attention are different quantities."
+analogy: "A desk does not get more useful as you pile more onto it."
+category: Context
+relatedTerms: [Context window, Attention]
+lessons: [w1.m01.b03]
+sources:
+  - url: https://platform.claude.com/docs/en/build-with-claude/context-windows
+    title: Context windows
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+---
+
+A one-million-token window is not a million tokens of reliable recall. Vendor documentation states the effect directly: as token count grows, accuracy and recall degrade, which makes curating what is in context as important as how much space remains.
+
+The practical consequence is a common wrong turn. When a long-running agent starts underperforming, the instinct is a bigger window; the problem is usually signal-to-noise inside the window. Compaction, clearing stale tool results, and restarting with a written summary all beat more capacity.

@@ -1,0 +1,34 @@
+---
+id: g007
+title: Don't leave failed attempts in the context and expect better ones
+slug: context-as-example
+category: Prompt Engineering & Reliability
+severity: medium
+whatGoesWrong: >
+  An agent gets stuck in a pattern — repeating a failing approach, producing
+  progressively sloppier output — and instructions to stop have no effect.
+whyItHappens: >
+  Everything in the context is an example of what to produce next. A conversation full
+  of failed attempts makes further failure more likely, because the model is predicting
+  what follows failed attempts. A single instruction is competing against an entire
+  conversation of evidence pointing the other way.
+howToDetect: >
+  Quality degrading over a long session with no change in task difficulty; the same
+  wrong approach retried with cosmetic variations; corrective instructions producing
+  acknowledgement without behaviour change.
+fix: >
+  Clear the context and restart with a written summary of what was learned, including
+  what did not work stated as a constraint rather than as a transcript. This is usually
+  faster than any amount of in-conversation correction, and it is the same reasoning
+  behind compaction in long-running agents.
+relatedLessons: [w1.m01.b06, w1.m01.b03]
+sources:
+  - url: https://platform.claude.com/docs/en/build-with-claude/context-windows
+    title: Context windows — context rot
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+---
+
+The instinct is to argue with the agent. The mechanism says to change what it is
+conditioning on, which usually means starting again with less in the window.

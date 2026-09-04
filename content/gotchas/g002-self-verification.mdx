@@ -1,0 +1,34 @@
+---
+id: g002
+title: Don't use a model's self-assessment as a verification control
+slug: self-verification
+category: Testing & Evaluation
+severity: high
+whatGoesWrong: >
+  A pipeline asks the model to check its own work, the model agrees with itself, and
+  the agreement is recorded as validation. Errors pass review with a confidence score
+  attached, which makes them harder to catch downstream than if no check had run.
+whyItHappens: >
+  The original answer sits in the context with its original framing, so it dominates
+  the distribution. The likeliest continuation of a confident answer plus "is this
+  correct?" is agreement. The model has no privileged access to its own reliability —
+  "yes, I'm sure" is produced by the same process that produced the claim.
+howToDetect: >
+  Look for any quality gate whose only evidence is model output about model output.
+  Measure it: take twenty cases you know are wrong and see how many the self-check
+  catches. Teams are routinely surprised by how close to zero this is.
+fix: >
+  Verification needs an external source of truth — a test suite, a type checker, a
+  source document, a tool that can disagree. Where a second model pass genuinely helps,
+  strip the original framing so the claim is evaluated on its own, not as "your answer".
+relatedLessons: [w1.m01.b03, w1.m01.b06]
+sources:
+  - url: https://arxiv.org/abs/2509.04664
+    title: Why Language Models Hallucinate
+    publisher: Kalai et al., arXiv
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+---
+
+Self-review is useful as a *drafting* step and worthless as a *control*. The distinction
+is whether anything outside the model can contradict the result.

@@ -1,0 +1,35 @@
+---
+id: g004
+title: Don't read a response body without checking why generation stopped
+slug: unchecked-stop-reason
+category: Architecture & Integration
+severity: high
+whatGoesWrong: >
+  A truncated response is processed as a complete one. A JSON object cut off at 90%
+  fails to parse at 3am; worse, a truncated prose answer parses fine and is simply wrong
+  in a way nothing detects.
+whyItHappens: >
+  The output limit is a hard ceiling the model cannot see, so it does not wind up
+  gracefully — it stops mid-token. Generation that reaches the context window limit also
+  stops with its own distinct reason. Both return HTTP 200 with a well-formed response
+  object, so no error handling triggers.
+howToDetect: >
+  Grep for code that reads response content without branching on the stop reason first.
+  Then check your logs for the distribution of stop reasons in production — a non-trivial
+  rate of limit-related stops that nobody knew about is common.
+fix: >
+  Branch on the stop reason before touching content, and handle each case distinctly.
+  Do not lowball the output limit to save money: you pay for the truncated output and
+  then pay again for the retry. Use streaming for large outputs so transport timeouts
+  do not become a second silent failure mode.
+relatedLessons: [w1.m01.b03]
+sources:
+  - url: https://platform.claude.com/docs/en/build-with-claude/context-windows
+    title: Context windows — overflow behaviour
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+---
+
+A refusal, a tool call, a truncation and a completed answer all arrive in the same shape.
+The stop reason is the only thing that tells them apart, and it is one line to check.

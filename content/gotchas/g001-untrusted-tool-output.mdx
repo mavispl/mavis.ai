@@ -1,0 +1,37 @@
+---
+id: g001
+title: Don't treat model output as trusted input to anything that executes
+slug: untrusted-model-output
+category: Security
+severity: critical
+whatGoesWrong: >
+  Generated text reaches a shell, an eval, a SQL string, or a template renderer, and
+  instructions embedded in content a tool fetched earlier — a web page, an issue
+  comment, a dependency's README — execute with your process's authority.
+whyItHappens: >
+  A tool result is appended to the context as ordinary text with no privilege marker.
+  Attention operates over token embeddings; nothing in the mathematics distinguishes
+  your system prompt from a document fetched thirty turns ago. Instruction following
+  is a learned tendency that a strong enough pattern elsewhere in context can outcompete.
+howToDetect: >
+  Trace every path from model output to an interpreter. If any path reaches a shell,
+  eval, query builder, or template engine without a schema or an allowlist in between,
+  it is exposed. Then check what content can enter context via tools — anything
+  fetched from outside your trust boundary is attacker-influenced.
+fix: >
+  Parse into a typed structure before use so the interpreter sees values, never text.
+  Allowlist the operations a tool may perform rather than filtering what it may not.
+  Run anything untrusted in a sandbox with no ambient credentials. Treat "the model
+  wouldn't do that" as untested, because it is not a security property.
+relatedLessons: [w1.m01.b01, w1.m01.b05]
+sources:
+  - url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview
+    title: Tool use overview
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+---
+
+This is the single highest-severity failure in AI-assisted engineering, and it is
+structural rather than a bug awaiting a patch. Design as though every tool result
+is attacker-controlled, because for any tool that reaches the outside world, it is.

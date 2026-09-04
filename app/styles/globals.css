@@ -1,0 +1,205 @@
+@import 'tailwindcss';
+@import './tokens.css';
+
+/* Map the semantic tokens onto Tailwind's utility namespace.
+   `inline` keeps them as var() references, so the light/dark swap in
+   tokens.css flows through every utility without a second build. */
+@theme inline {
+  --color-bg:               var(--bg);
+  --color-surface:          var(--surface);
+  --color-surface-raised:   var(--surface-raised);
+  --color-surface-sunken:   var(--surface-sunken);
+  --color-surface-inverse:  var(--surface-inverse);
+  --color-on-inverse:       var(--on-inverse);
+
+  --color-text:             var(--text);
+  --color-text-muted:       var(--text-muted);
+  --color-text-faint:       var(--text-faint);
+
+  --color-border:           var(--border);
+  --color-border-strong:    var(--border-strong);
+  --color-border-faint:     var(--border-faint);
+
+  --color-primary:              var(--primary);
+  --color-on-primary:           var(--on-primary);
+  --color-primary-container:    var(--primary-container);
+  --color-on-primary-container: var(--on-primary-container);
+  --color-primary-hover:        var(--primary-hover);
+
+  --color-accent:               var(--accent);
+  --color-on-accent:            var(--on-accent);
+  --color-accent-container:     var(--accent-container);
+  --color-on-accent-container:  var(--on-accent-container);
+
+  --color-ok:            var(--ok);
+  --color-ok-container:  var(--ok-container);
+  --color-warn:          var(--warn);
+  --color-warn-container:var(--warn-container);
+  --color-err:           var(--err);
+  --color-err-container: var(--err-container);
+  --color-info:          var(--info);
+  --color-info-container:var(--info-container);
+
+  --color-code-bg:     var(--code-bg);
+  --color-code-border: var(--code-border);
+
+  --font-display: var(--font-display);
+  --font-body:    var(--font-body);
+  --font-mono:    var(--font-mono);
+
+  --text-display-lg: var(--text-display-lg);
+  --text-display-md: var(--text-display-md);
+  --text-display-sm: var(--text-display-sm);
+  --text-headline:   var(--text-headline);
+  --text-title-lg:   var(--text-title-lg);
+  --text-title:      var(--text-title);
+  --text-body-lg:    var(--text-body-lg);
+  --text-body:       var(--text-body);
+  --text-small:      var(--text-small);
+  --text-label:      var(--text-label);
+
+  --radius-xs:   var(--radius-xs);
+  --radius-sm:   var(--radius-sm);
+  --radius-md:   var(--radius-md);
+  --radius-lg:   var(--radius-lg);
+  --radius-xl:   var(--radius-xl);
+  --radius-full: var(--radius-full);
+
+  --shadow-elev-1: var(--elev-1);
+  --shadow-elev-2: var(--elev-2);
+  --shadow-elev-3: var(--elev-3);
+  --shadow-elev-4: var(--elev-4);
+
+  --ease-standard:   var(--ease-standard);
+  --ease-emphasized: var(--ease-emphasized);
+}
+
+@layer base {
+  * { border-color: var(--border); }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-height) + var(--space-4));
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    line-height: var(--lh-body);
+    font-feature-settings: 'kern', 'liga', 'cv05';
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    color: var(--text);
+    letter-spacing: var(--tracking-display);
+    font-weight: 600;
+    text-wrap: balance;
+  }
+
+  /* One visible focus treatment everywhere. Never removed. */
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
+  }
+
+  ::selection { background: var(--accent-container); color: var(--on-accent-container); }
+
+  code, pre, kbd { font-family: var(--font-mono); }
+
+  /* rehype-autolink-headings wraps the heading text; keep it invisible-but-there */
+  .heading-anchor { color: inherit; text-decoration: none; }
+  .heading-anchor:hover { text-decoration: underline; text-decoration-color: var(--border-strong); text-underline-offset: 0.2em; }
+}
+
+@layer components {
+  /* ---- The reading column -------------------------------------------- */
+  .prose-course {
+    max-width: var(--measure);
+    font-size: var(--text-body-lg);
+    line-height: var(--lh-body-lg);
+    color: var(--text);
+  }
+  .prose-course > * + * { margin-top: var(--space-4); }
+  .prose-course h2 {
+    font-size: var(--text-headline); line-height: var(--lh-headline);
+    margin-top: var(--space-7); margin-bottom: var(--space-3);
+    padding-top: var(--space-3); border-top: 1px solid var(--border-faint);
+  }
+  .prose-course h3 {
+    font-size: var(--text-title-lg); line-height: var(--lh-title-lg);
+    margin-top: var(--space-6); margin-bottom: var(--space-2);
+  }
+  .prose-course h4 {
+    font-size: var(--text-title); line-height: var(--lh-title);
+    margin-top: var(--space-5); margin-bottom: var(--space-2);
+  }
+  .prose-course p { text-wrap: pretty; }
+  .prose-course a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+    text-decoration-color: color-mix(in oklch, var(--primary) 40%, transparent);
+  }
+  .prose-course a:hover { text-decoration-color: var(--primary); }
+  .prose-course ul, .prose-course ol { padding-left: var(--space-5); }
+  .prose-course ul { list-style: disc; }
+  .prose-course ol { list-style: decimal; }
+  .prose-course li + li { margin-top: var(--space-2); }
+  .prose-course li::marker { color: var(--text-faint); }
+  .prose-course strong { font-weight: 650; color: var(--text); }
+  .prose-course blockquote {
+    border-left: 3px solid var(--accent);
+    padding-left: var(--space-4);
+    color: var(--text-muted);
+    font-style: italic;
+  }
+  .prose-course :not(pre) > code {
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+    border-radius: var(--radius-xs);
+    padding: 0.1em 0.34em;
+    font-size: 0.88em;
+    word-break: break-word;
+  }
+  .prose-course pre {
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    overflow-x: auto;
+    font-size: var(--text-small);
+    line-height: 1.65;
+  }
+  .prose-course pre code { background: none; border: 0; padding: 0; font-size: inherit; }
+  .prose-course table { width: 100%; border-collapse: collapse; font-size: var(--text-body); display: block; overflow-x: auto; }
+  .prose-course th, .prose-course td { border: 1px solid var(--border); padding: var(--space-2) var(--space-3); text-align: left; vertical-align: top; }
+  .prose-course th { background: var(--surface-sunken); font-weight: 600; }
+  .prose-course hr { border: 0; border-top: 1px solid var(--border); margin: var(--space-6) 0; }
+
+  /* ---- State layer helper: MD3 semantics, editorial restraint --------- */
+  .state-layer { transition: background-color var(--dur-short) var(--ease-standard); }
+  .state-layer:hover  { background-color: color-mix(in oklch, var(--text) calc(var(--state-hover) * 100%), transparent); }
+  .state-layer:active { background-color: color-mix(in oklch, var(--text) calc(var(--state-pressed) * 100%), transparent); }
+
+  .label-caps {
+    font-size: var(--text-label);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--text-faint);
+  }
+}
+
+@layer utilities {
+  .measure { max-width: var(--measure); }
+  .scrollbar-thin { scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
+}

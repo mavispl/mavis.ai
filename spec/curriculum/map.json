@@ -1,0 +1,3510 @@
+{
+  "generatedAt": "2026-09-04T08:57:41.263Z",
+  "runId": "map-2026-09-04T08-57-41-262Z-caa233ed",
+  "source": "scripts/lib/agenda.ts",
+  "totals": {
+    "weeks": 4,
+    "modules": 20,
+    "lessons": 107,
+    "readingMinutes": 1331,
+    "byVolatility": {
+      "medium": 49,
+      "low": 27,
+      "high": 31
+    }
+  },
+  "crashCourse": [
+    "w1.m01.b01",
+    "w1.m01.b02",
+    "w1.m01.b03",
+    "w1.m02.b02",
+    "w1.m01.b05",
+    "w1.m02.b05",
+    "w1.m02.b06",
+    "w1.m03.b01",
+    "w1.m04.b01",
+    "w1.m04.b04",
+    "w1.m05.b02",
+    "w1.m05.b05"
+  ],
+  "weeks": [
+    {
+      "week": 1,
+      "title": "Core",
+      "goal": "Understand generative AI deeply enough to reason beyond current tools.",
+      "modules": [
+        {
+          "module": 1,
+          "title": "Mechanics Behind Generative AI",
+          "volatility": "medium",
+          "lessonCount": 6,
+          "lessons": [
+            "w1.m01.b01",
+            "w1.m01.b02",
+            "w1.m01.b03",
+            "w1.m01.b04",
+            "w1.m01.b05",
+            "w1.m01.b06"
+          ]
+        },
+        {
+          "module": 2,
+          "title": "Steering Models Through Context",
+          "volatility": "high",
+          "lessonCount": 6,
+          "lessons": [
+            "w1.m02.b01",
+            "w1.m02.b02",
+            "w1.m02.b03",
+            "w1.m02.b04",
+            "w1.m02.b05",
+            "w1.m02.b06"
+          ]
+        },
+        {
+          "module": 3,
+          "title": "Building Knowledge Systems",
+          "volatility": "medium",
+          "lessonCount": 6,
+          "lessons": [
+            "w1.m03.b01",
+            "w1.m03.b02",
+            "w1.m03.b03",
+            "w1.m03.b04",
+            "w1.m03.b05",
+            "w1.m03.b06"
+          ]
+        },
+        {
+          "module": 4,
+          "title": "Working with AI Harnesses",
+          "volatility": "high",
+          "lessonCount": 6,
+          "lessons": [
+            "w1.m04.b01",
+            "w1.m04.b02",
+            "w1.m04.b03",
+            "w1.m04.b04",
+            "w1.m04.b05",
+            "w1.m04.b06"
+          ]
+        },
+        {
+          "module": 5,
+          "title": "Building Workflows, Not Tool Stacks",
+          "volatility": "medium",
+          "lessonCount": 6,
+          "lessons": [
+            "w1.m05.b01",
+            "w1.m05.b02",
+            "w1.m05.b03",
+            "w1.m05.b04",
+            "w1.m05.b05",
+            "w1.m05.b06"
+          ]
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "title": "Agents",
+      "goal": "Shape and build agentic systems that deliver value with bounded supervision.",
+      "modules": [
+        {
+          "module": 1,
+          "title": "Mechanics Behind AI Agents",
+          "volatility": "medium",
+          "lessonCount": 5,
+          "lessons": [
+            "w2.m01.b01",
+            "w2.m01.b02",
+            "w2.m01.b03",
+            "w2.m01.b04",
+            "w2.m01.b05"
+          ]
+        },
+        {
+          "module": 2,
+          "title": "Thinking in Agentic Primitives",
+          "volatility": "low",
+          "lessonCount": 5,
+          "lessons": [
+            "w2.m02.b01",
+            "w2.m02.b02",
+            "w2.m02.b03",
+            "w2.m02.b04",
+            "w2.m02.b05"
+          ]
+        },
+        {
+          "module": 3,
+          "title": "Augmenting Agents with Tools and Data",
+          "volatility": "high",
+          "lessonCount": 5,
+          "lessons": [
+            "w2.m03.b01",
+            "w2.m03.b02",
+            "w2.m03.b03",
+            "w2.m03.b04",
+            "w2.m03.b05"
+          ]
+        },
+        {
+          "module": 4,
+          "title": "Designing Custom Agentic Systems",
+          "volatility": "high",
+          "lessonCount": 5,
+          "lessons": [
+            "w2.m04.b01",
+            "w2.m04.b02",
+            "w2.m04.b03",
+            "w2.m04.b04",
+            "w2.m04.b05"
+          ]
+        },
+        {
+          "module": 5,
+          "title": "Engineering Multi-Agent Systems",
+          "volatility": "medium",
+          "lessonCount": 5,
+          "lessons": [
+            "w2.m05.b01",
+            "w2.m05.b02",
+            "w2.m05.b03",
+            "w2.m05.b04",
+            "w2.m05.b05"
+          ]
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "title": "Product",
+      "goal": "Direct AI toward meaningful system changes and verify what ships.",
+      "modules": [
+        {
+          "module": 1,
+          "title": "Mechanics Behind Product Engineering",
+          "volatility": "low",
+          "lessonCount": 5,
+          "lessons": [
+            "w3.m01.b01",
+            "w3.m01.b02",
+            "w3.m01.b03",
+            "w3.m01.b04",
+            "w3.m01.b05"
+          ]
+        },
+        {
+          "module": 2,
+          "title": "Translating Intent into Agent Work",
+          "volatility": "low",
+          "lessonCount": 6,
+          "lessons": [
+            "w3.m02.b01",
+            "w3.m02.b02",
+            "w3.m02.b03",
+            "w3.m02.b04",
+            "w3.m02.b05",
+            "w3.m02.b06"
+          ]
+        },
+        {
+          "module": 3,
+          "title": "AI-Native Product Development",
+          "volatility": "medium",
+          "lessonCount": 6,
+          "lessons": [
+            "w3.m03.b01",
+            "w3.m03.b02",
+            "w3.m03.b03",
+            "w3.m03.b04",
+            "w3.m03.b05",
+            "w3.m03.b06"
+          ]
+        },
+        {
+          "module": 4,
+          "title": "Verifying Product Outcomes",
+          "volatility": "low",
+          "lessonCount": 5,
+          "lessons": [
+            "w3.m04.b01",
+            "w3.m04.b02",
+            "w3.m04.b03",
+            "w3.m04.b04",
+            "w3.m04.b05"
+          ]
+        },
+        {
+          "module": 5,
+          "title": "Products That Learn After Release",
+          "volatility": "medium",
+          "lessonCount": 5,
+          "lessons": [
+            "w3.m05.b01",
+            "w3.m05.b02",
+            "w3.m05.b03",
+            "w3.m05.b04",
+            "w3.m05.b05"
+          ]
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "title": "Takeoff",
+      "goal": "Build autonomous systems that operate, recover, and improve over time.",
+      "modules": [
+        {
+          "module": 1,
+          "title": "Mechanics Behind Autonomous Systems",
+          "volatility": "medium",
+          "lessonCount": 5,
+          "lessons": [
+            "w4.m01.b01",
+            "w4.m01.b02",
+            "w4.m01.b03",
+            "w4.m01.b04",
+            "w4.m01.b05"
+          ]
+        },
+        {
+          "module": 2,
+          "title": "Building Portable Agent Control Planes",
+          "volatility": "high",
+          "lessonCount": 5,
+          "lessons": [
+            "w4.m02.b01",
+            "w4.m02.b02",
+            "w4.m02.b03",
+            "w4.m02.b04",
+            "w4.m02.b05"
+          ]
+        },
+        {
+          "module": 3,
+          "title": "Orchestrating Autonomous Agent Teams",
+          "volatility": "medium",
+          "lessonCount": 5,
+          "lessons": [
+            "w4.m03.b01",
+            "w4.m03.b02",
+            "w4.m03.b03",
+            "w4.m03.b04",
+            "w4.m03.b05"
+          ]
+        },
+        {
+          "module": 4,
+          "title": "Automating Work Beyond Code",
+          "volatility": "high",
+          "lessonCount": 5,
+          "lessons": [
+            "w4.m04.b01",
+            "w4.m04.b02",
+            "w4.m04.b03",
+            "w4.m04.b04",
+            "w4.m04.b05"
+          ]
+        },
+        {
+          "module": 5,
+          "title": "Building Self-Improving Engineering Systems",
+          "volatility": "medium",
+          "lessonCount": 5,
+          "lessons": [
+            "w4.m05.b01",
+            "w4.m05.b02",
+            "w4.m05.b03",
+            "w4.m05.b04",
+            "w4.m05.b05"
+          ]
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "w1.m01.b01",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 1,
+      "moduleTitle": "Mechanics Behind Generative AI",
+      "bullet": 1,
+      "label": "Introduction",
+      "title": "What generative AI actually is, and what a harness adds",
+      "covers": [
+        "generative AI",
+        "harnesses",
+        "configuration",
+        "agentic tooling",
+        "custom tools"
+      ],
+      "permalink": "/deep-dive/w1/m01/b01",
+      "contentPath": "content/lessons/w1/m01/b01.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "crashCourse": 1,
+      "prerequisites": []
+    },
+    {
+      "id": "w1.m01.b02",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 1,
+      "moduleTitle": "Mechanics Behind Generative AI",
+      "bullet": 2,
+      "label": "Mechanics",
+      "title": "Tokens, prediction, and attention: what happens to your prompt",
+      "covers": [
+        "instructions",
+        "completion",
+        "tokenization",
+        "prediction",
+        "attention",
+        "instruction following"
+      ],
+      "permalink": "/deep-dive/w1/m01/b02",
+      "contentPath": "content/lessons/w1/m01/b02.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 16,
+      "crashCourse": 2,
+      "prerequisites": [
+        "w1.m01.b01"
+      ]
+    },
+    {
+      "id": "w1.m01.b03",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 1,
+      "moduleTitle": "Mechanics Behind Generative AI",
+      "bullet": 3,
+      "label": "Limitations",
+      "title": "Confabulation, cutoffs, and the edges of the context window",
+      "covers": [
+        "illusions",
+        "confabulation",
+        "base knowledge",
+        "knowledge cutoff",
+        "context windows",
+        "output limits"
+      ],
+      "permalink": "/deep-dive/w1/m01/b03",
+      "contentPath": "content/lessons/w1/m01/b03.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 14,
+      "crashCourse": 3,
+      "prerequisites": [
+        "w1.m01.b02",
+        "w1.m01.b01"
+      ]
+    },
+    {
+      "id": "w1.m01.b04",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 1,
+      "moduleTitle": "Mechanics Behind Generative AI",
+      "bullet": 4,
+      "label": "Providers",
+      "title": "Choosing and mixing models without guessing",
+      "covers": [
+        "models",
+        "capabilities",
+        "features",
+        "settings",
+        "pricing",
+        "specialization",
+        "model mixing"
+      ],
+      "permalink": "/deep-dive/w1/m01/b04",
+      "contentPath": "content/lessons/w1/m01/b04.mdx",
+      "volatility": "high",
+      "personas": [
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 13,
+      "prerequisites": [
+        "w1.m01.b03",
+        "w1.m01.b01"
+      ]
+    },
+    {
+      "id": "w1.m01.b05",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 1,
+      "moduleTitle": "Mechanics Behind Generative AI",
+      "bullet": 5,
+      "label": "Interactions",
+      "title": "Text, structured output, and function calling",
+      "covers": [
+        "text generation",
+        "structured outputs",
+        "function calling",
+        "native tools",
+        "external tools"
+      ],
+      "permalink": "/deep-dive/w1/m01/b05",
+      "contentPath": "content/lessons/w1/m01/b05.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 15,
+      "crashCourse": 5,
+      "prerequisites": [
+        "w1.m01.b04",
+        "w1.m01.b01"
+      ]
+    },
+    {
+      "id": "w1.m01.b06",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 1,
+      "moduleTitle": "Mechanics Behind Generative AI",
+      "bullet": 6,
+      "label": "Steering",
+      "title": "Steering a model: generalization, association, and latent space",
+      "covers": [
+        "generalization",
+        "associations",
+        "self-querying",
+        "latent space",
+        "J-space",
+        "reasoning"
+      ],
+      "permalink": "/deep-dive/w1/m01/b06",
+      "contentPath": "content/lessons/w1/m01/b06.mdx",
+      "volatility": "low",
+      "personas": [
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 15,
+      "prerequisites": [
+        "w1.m01.b05",
+        "w1.m01.b01"
+      ]
+    },
+    {
+      "id": "w1.m02.b01",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 2,
+      "moduleTitle": "Steering Models Through Context",
+      "bullet": 1,
+      "label": "Settings",
+      "title": "Profiles, projects, and permissions: the configuration surface",
+      "covers": [
+        "profiles",
+        "projects",
+        "agents",
+        "permissions",
+        "history",
+        "connectors"
+      ],
+      "permalink": "/deep-dive/w1/m02/b01",
+      "contentPath": "content/lessons/w1/m02/b01.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": []
+    },
+    {
+      "id": "w1.m02.b02",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 2,
+      "moduleTitle": "Steering Models Through Context",
+      "bullet": 2,
+      "label": "Context",
+      "title": "Context is the whole interface",
+      "covers": [
+        "sessions",
+        "threads",
+        "metadata",
+        "environment",
+        "tools",
+        "skills",
+        "modes",
+        "compression"
+      ],
+      "permalink": "/deep-dive/w1/m02/b02",
+      "contentPath": "content/lessons/w1/m02/b02.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 16,
+      "crashCourse": 4,
+      "prerequisites": [
+        "w1.m02.b01"
+      ]
+    },
+    {
+      "id": "w1.m02.b03",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 2,
+      "moduleTitle": "Steering Models Through Context",
+      "bullet": 3,
+      "label": "Processing",
+      "title": "What the model can take in: text, threads, attachments, multimodality",
+      "covers": [
+        "text",
+        "threads",
+        "context",
+        "multimodality",
+        "attachments",
+        "real-time interactions"
+      ],
+      "permalink": "/deep-dive/w1/m02/b03",
+      "contentPath": "content/lessons/w1/m02/b03.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w1.m02.b02",
+        "w1.m02.b01"
+      ]
+    },
+    {
+      "id": "w1.m02.b04",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 2,
+      "moduleTitle": "Steering Models Through Context",
+      "bullet": 4,
+      "label": "Skills",
+      "title": "Skills: packaged instructions the model loads on demand",
+      "covers": [
+        "structure",
+        "selection",
+        "scope",
+        "graphs",
+        "scripts",
+        "dynamic resources",
+        "generation"
+      ],
+      "permalink": "/deep-dive/w1/m02/b04",
+      "contentPath": "content/lessons/w1/m02/b04.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior"
+      ],
+      "estMinutes": 15,
+      "prerequisites": [
+        "w1.m02.b03",
+        "w1.m02.b01"
+      ]
+    },
+    {
+      "id": "w1.m02.b05",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 2,
+      "moduleTitle": "Steering Models Through Context",
+      "bullet": 5,
+      "label": "Tools",
+      "title": "Tool design: schemas, results, and recovery",
+      "covers": [
+        "discovery",
+        "schemas",
+        "results",
+        "hints",
+        "recovery",
+        "code mode",
+        "Bash"
+      ],
+      "permalink": "/deep-dive/w1/m02/b05",
+      "contentPath": "content/lessons/w1/m02/b05.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior"
+      ],
+      "estMinutes": 16,
+      "crashCourse": 6,
+      "prerequisites": [
+        "w1.m02.b04",
+        "w1.m02.b01"
+      ]
+    },
+    {
+      "id": "w1.m02.b06",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 2,
+      "moduleTitle": "Steering Models Through Context",
+      "bullet": 6,
+      "label": "Subagents",
+      "title": "Subagents: bounded context, handoffs, and what they cost",
+      "covers": [
+        "mechanics",
+        "settings",
+        "state",
+        "handoffs",
+        "shared context"
+      ],
+      "permalink": "/deep-dive/w1/m02/b06",
+      "contentPath": "content/lessons/w1/m02/b06.mdx",
+      "volatility": "high",
+      "personas": [
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 14,
+      "crashCourse": 7,
+      "prerequisites": [
+        "w1.m02.b05",
+        "w1.m02.b01"
+      ]
+    },
+    {
+      "id": "w1.m03.b01",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 3,
+      "moduleTitle": "Building Knowledge Systems",
+      "bullet": 1,
+      "label": "Files",
+      "title": "Files as the interface: Markdown, artifacts, executables, logs",
+      "covers": [
+        "Markdown",
+        "HTML",
+        "artifacts",
+        "executables",
+        "logs"
+      ],
+      "permalink": "/deep-dive/w1/m03/b01",
+      "contentPath": "content/lessons/w1/m03/b01.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "crashCourse": 8,
+      "prerequisites": []
+    },
+    {
+      "id": "w1.m03.b02",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 3,
+      "moduleTitle": "Building Knowledge Systems",
+      "bullet": 2,
+      "label": "Style Guide",
+      "title": "Writing for models: structure, essence, and levels of depth",
+      "covers": [
+        "dynamic structures",
+        "extracting the essence",
+        "levels of depth",
+        "diff strategies"
+      ],
+      "permalink": "/deep-dive/w1/m03/b02",
+      "contentPath": "content/lessons/w1/m03/b02.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 13,
+      "prerequisites": [
+        "w1.m03.b01"
+      ]
+    },
+    {
+      "id": "w1.m03.b03",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 3,
+      "moduleTitle": "Building Knowledge Systems",
+      "bullet": 3,
+      "label": "Specifications",
+      "title": "Specifications that stay true: synchronization, maps, and history",
+      "covers": [
+        "structures",
+        "automatic synchronization",
+        "global specifications",
+        "maps",
+        "exploration",
+        "history"
+      ],
+      "permalink": "/deep-dive/w1/m03/b03",
+      "contentPath": "content/lessons/w1/m03/b03.mdx",
+      "volatility": "low",
+      "personas": [
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 15,
+      "prerequisites": [
+        "w1.m03.b02",
+        "w1.m03.b01"
+      ]
+    },
+    {
+      "id": "w1.m03.b04",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 3,
+      "moduleTitle": "Building Knowledge Systems",
+      "bullet": 4,
+      "label": "Tasks",
+      "title": "Task shape: scope, requirements, progress, and completion",
+      "covers": [
+        "source",
+        "scope",
+        "requirements",
+        "progress tracking",
+        "stage splitting",
+        "completion indicators"
+      ],
+      "permalink": "/deep-dive/w1/m03/b04",
+      "contentPath": "content/lessons/w1/m03/b04.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 13,
+      "prerequisites": [
+        "w1.m03.b03",
+        "w1.m03.b01"
+      ]
+    },
+    {
+      "id": "w1.m03.b05",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 3,
+      "moduleTitle": "Building Knowledge Systems",
+      "bullet": 5,
+      "label": "Library",
+      "title": "A personal and shared library of reusable resources",
+      "covers": [
+        "personal resources",
+        "shared resources",
+        "internal configurations",
+        "custom generators"
+      ],
+      "permalink": "/deep-dive/w1/m03/b05",
+      "contentPath": "content/lessons/w1/m03/b05.mdx",
+      "volatility": "medium",
+      "personas": [
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 11,
+      "prerequisites": [
+        "w1.m03.b04",
+        "w1.m03.b01"
+      ]
+    },
+    {
+      "id": "w1.m03.b06",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 3,
+      "moduleTitle": "Building Knowledge Systems",
+      "bullet": 6,
+      "label": "Research",
+      "title": "Autonomous research and context providers",
+      "covers": [
+        "discovery",
+        "autonomous research",
+        "context providers"
+      ],
+      "permalink": "/deep-dive/w1/m03/b06",
+      "contentPath": "content/lessons/w1/m03/b06.mdx",
+      "volatility": "high",
+      "personas": [
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w1.m03.b05",
+        "w1.m03.b01"
+      ]
+    },
+    {
+      "id": "w1.m04.b01",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 4,
+      "moduleTitle": "Working with AI Harnesses",
+      "bullet": 1,
+      "label": "Harnesses",
+      "title": "What a harness is, and what every harness shares",
+      "covers": [
+        "overview",
+        "common features",
+        "personalization",
+        "harness-agnostic workflows"
+      ],
+      "permalink": "/deep-dive/w1/m04/b01",
+      "contentPath": "content/lessons/w1/m04/b01.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 14,
+      "crashCourse": 9,
+      "prerequisites": []
+    },
+    {
+      "id": "w1.m04.b02",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 4,
+      "moduleTitle": "Working with AI Harnesses",
+      "bullet": 2,
+      "label": "Interfaces",
+      "title": "Desktop, CLI, and programmatic: picking the right surface",
+      "covers": [
+        "desktop",
+        "CLI",
+        "chat features",
+        "programmatic calls",
+        "custom scripts"
+      ],
+      "permalink": "/deep-dive/w1/m04/b02",
+      "contentPath": "content/lessons/w1/m04/b02.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w1.m04.b01"
+      ]
+    },
+    {
+      "id": "w1.m04.b03",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 4,
+      "moduleTitle": "Working with AI Harnesses",
+      "bullet": 3,
+      "label": "Settings",
+      "title": "Routing, connectors, extensions, and worktrees",
+      "covers": [
+        "providers",
+        "model routing",
+        "connectors",
+        "extensions",
+        "repositories",
+        "worktrees"
+      ],
+      "permalink": "/deep-dive/w1/m04/b03",
+      "contentPath": "content/lessons/w1/m04/b03.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior"
+      ],
+      "estMinutes": 13,
+      "prerequisites": [
+        "w1.m04.b02",
+        "w1.m04.b01"
+      ]
+    },
+    {
+      "id": "w1.m04.b04",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 4,
+      "moduleTitle": "Working with AI Harnesses",
+      "bullet": 4,
+      "label": "Workflows",
+      "title": "The working loop: load context, iterate, verify",
+      "covers": [
+        "context loading",
+        "iteration",
+        "automatic feedback",
+        "verification",
+        "multi-threaded work"
+      ],
+      "permalink": "/deep-dive/w1/m04/b04",
+      "contentPath": "content/lessons/w1/m04/b04.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 16,
+      "crashCourse": 10,
+      "prerequisites": [
+        "w1.m04.b03",
+        "w1.m04.b01"
+      ]
+    },
+    {
+      "id": "w1.m04.b05",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 4,
+      "moduleTitle": "Working with AI Harnesses",
+      "bullet": 5,
+      "label": "Teamwork",
+      "title": "Reviews that hold: enriched diffs and multi-agent review",
+      "covers": [
+        "issue management",
+        "enriched reviews",
+        "layered diffs",
+        "multi-agent review"
+      ],
+      "permalink": "/deep-dive/w1/m04/b05",
+      "contentPath": "content/lessons/w1/m04/b05.mdx",
+      "volatility": "medium",
+      "personas": [
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 14,
+      "prerequisites": [
+        "w1.m04.b04",
+        "w1.m04.b01"
+      ]
+    },
+    {
+      "id": "w1.m04.b06",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 4,
+      "moduleTitle": "Working with AI Harnesses",
+      "bullet": 6,
+      "label": "Product",
+      "title": "Dashboards, issue enrichment, and automated resolution",
+      "covers": [
+        "dynamic dashboards",
+        "issue enrichment",
+        "automatic issue resolution",
+        "communication management"
+      ],
+      "permalink": "/deep-dive/w1/m04/b06",
+      "contentPath": "content/lessons/w1/m04/b06.mdx",
+      "volatility": "medium",
+      "personas": [
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 13,
+      "prerequisites": [
+        "w1.m04.b05",
+        "w1.m04.b01"
+      ]
+    },
+    {
+      "id": "w1.m05.b01",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 5,
+      "moduleTitle": "Building Workflows, Not Tool Stacks",
+      "bullet": 1,
+      "label": "Workflows",
+      "title": "Executable Markdown, deterministic tools, and graphs",
+      "covers": [
+        "executable Markdown",
+        "dynamic apps",
+        "deterministic tools",
+        "graphs"
+      ],
+      "permalink": "/deep-dive/w1/m05/b01",
+      "contentPath": "content/lessons/w1/m05/b01.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior"
+      ],
+      "estMinutes": 14,
+      "prerequisites": []
+    },
+    {
+      "id": "w1.m05.b02",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 5,
+      "moduleTitle": "Building Workflows, Not Tool Stacks",
+      "bullet": 2,
+      "label": "Quality",
+      "title": "Checklists, safeguards, and review loops that actually catch things",
+      "covers": [
+        "checklists",
+        "safeguards",
+        "review loops",
+        "performance markers"
+      ],
+      "permalink": "/deep-dive/w1/m05/b02",
+      "contentPath": "content/lessons/w1/m05/b02.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 13,
+      "crashCourse": 11,
+      "prerequisites": [
+        "w1.m05.b01"
+      ]
+    },
+    {
+      "id": "w1.m05.b03",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 5,
+      "moduleTitle": "Building Workflows, Not Tool Stacks",
+      "bullet": 3,
+      "label": "User Experience",
+      "title": "Synthetic scenarios, recordings, and behavioural analysis",
+      "covers": [
+        "synthetic scenarios",
+        "visual notes",
+        "recordings",
+        "deep behavioral analysis"
+      ],
+      "permalink": "/deep-dive/w1/m05/b03",
+      "contentPath": "content/lessons/w1/m05/b03.mdx",
+      "volatility": "medium",
+      "personas": [
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 13,
+      "prerequisites": [
+        "w1.m05.b02",
+        "w1.m05.b01"
+      ]
+    },
+    {
+      "id": "w1.m05.b04",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 5,
+      "moduleTitle": "Building Workflows, Not Tool Stacks",
+      "bullet": 4,
+      "label": "User Interfaces",
+      "title": "Visual prototyping and design systems with an agent",
+      "covers": [
+        "visual prototyping",
+        "design systems",
+        "augmented visual analysis"
+      ],
+      "permalink": "/deep-dive/w1/m05/b04",
+      "contentPath": "content/lessons/w1/m05/b04.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w1.m05.b03",
+        "w1.m05.b01"
+      ]
+    },
+    {
+      "id": "w1.m05.b05",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 5,
+      "moduleTitle": "Building Workflows, Not Tool Stacks",
+      "bullet": 5,
+      "label": "Security",
+      "title": "Critical loops, layered reviews, and dependency risk",
+      "covers": [
+        "critical loops",
+        "checklists",
+        "layered reviews",
+        "dependency reviews"
+      ],
+      "permalink": "/deep-dive/w1/m05/b05",
+      "contentPath": "content/lessons/w1/m05/b05.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 15,
+      "crashCourse": 12,
+      "prerequisites": [
+        "w1.m05.b04",
+        "w1.m05.b01"
+      ]
+    },
+    {
+      "id": "w1.m05.b06",
+      "week": 1,
+      "weekTitle": "Core",
+      "module": 5,
+      "moduleTitle": "Building Workflows, Not Tool Stacks",
+      "bullet": 6,
+      "label": "Business",
+      "title": "From product analysis to roadmap inputs",
+      "covers": [
+        "product analysis",
+        "insights",
+        "dynamic reports",
+        "roadmap inputs"
+      ],
+      "permalink": "/deep-dive/w1/m05/b06",
+      "contentPath": "content/lessons/w1/m05/b06.mdx",
+      "volatility": "low",
+      "personas": [
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w1.m05.b05",
+        "w1.m05.b01"
+      ]
+    },
+    {
+      "id": "w2.m01.b01",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 1,
+      "moduleTitle": "Mechanics Behind AI Agents",
+      "bullet": 1,
+      "label": "Core",
+      "title": "What makes something an agent rather than a call",
+      "covers": [
+        "agent loop",
+        "goal",
+        "termination"
+      ],
+      "permalink": "/deep-dive/w2/m01/b01",
+      "contentPath": "content/lessons/w2/m01/b01.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w1.m01.b02"
+      ]
+    },
+    {
+      "id": "w2.m01.b02",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 1,
+      "moduleTitle": "Mechanics Behind AI Agents",
+      "bullet": 2,
+      "label": "Context",
+      "title": "Context as the agent’s working memory",
+      "covers": [
+        "window budget",
+        "retrieval",
+        "compaction"
+      ],
+      "permalink": "/deep-dive/w2/m01/b02",
+      "contentPath": "content/lessons/w2/m01/b02.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w2.m01.b01"
+      ]
+    },
+    {
+      "id": "w2.m01.b03",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 1,
+      "moduleTitle": "Mechanics Behind AI Agents",
+      "bullet": 3,
+      "label": "Memory",
+      "title": "Memory: what persists, and what should not",
+      "covers": [
+        "episodic",
+        "semantic",
+        "scoping",
+        "staleness"
+      ],
+      "permalink": "/deep-dive/w2/m01/b03",
+      "contentPath": "content/lessons/w2/m01/b03.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w2.m01.b02",
+        "w2.m01.b01"
+      ]
+    },
+    {
+      "id": "w2.m01.b04",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 1,
+      "moduleTitle": "Mechanics Behind AI Agents",
+      "bullet": 4,
+      "label": "Sandboxing",
+      "title": "Sandboxing: bounding what an agent can reach",
+      "covers": [
+        "isolation",
+        "credentials",
+        "filesystem",
+        "network"
+      ],
+      "permalink": "/deep-dive/w2/m01/b04",
+      "contentPath": "content/lessons/w2/m01/b04.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w2.m01.b03",
+        "w2.m01.b01"
+      ]
+    },
+    {
+      "id": "w2.m01.b05",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 1,
+      "moduleTitle": "Mechanics Behind AI Agents",
+      "bullet": 5,
+      "label": "Multi-Agent Systems",
+      "title": "When one agent should become several",
+      "covers": [
+        "decomposition",
+        "cost",
+        "failure modes"
+      ],
+      "permalink": "/deep-dive/w2/m01/b05",
+      "contentPath": "content/lessons/w2/m01/b05.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w2.m01.b04",
+        "w2.m01.b01"
+      ]
+    },
+    {
+      "id": "w2.m02.b01",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 2,
+      "moduleTitle": "Thinking in Agentic Primitives",
+      "bullet": 1,
+      "label": "Primitives",
+      "title": "The primitives every agentic system is built from",
+      "covers": [
+        "tool",
+        "context",
+        "loop",
+        "policy"
+      ],
+      "permalink": "/deep-dive/w2/m02/b01",
+      "contentPath": "content/lessons/w2/m02/b01.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": []
+    },
+    {
+      "id": "w2.m02.b02",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 2,
+      "moduleTitle": "Thinking in Agentic Primitives",
+      "bullet": 2,
+      "label": "Environment",
+      "title": "The environment an agent acts in",
+      "covers": [
+        "state",
+        "observability",
+        "side effects"
+      ],
+      "permalink": "/deep-dive/w2/m02/b02",
+      "contentPath": "content/lessons/w2/m02/b02.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w2.m02.b01"
+      ]
+    },
+    {
+      "id": "w2.m02.b03",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 2,
+      "moduleTitle": "Thinking in Agentic Primitives",
+      "bullet": 3,
+      "label": "Execution",
+      "title": "Execution: steps, retries, and stopping",
+      "covers": [
+        "step budget",
+        "retry",
+        "idempotence"
+      ],
+      "permalink": "/deep-dive/w2/m02/b03",
+      "contentPath": "content/lessons/w2/m02/b03.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w2.m02.b02",
+        "w2.m02.b01"
+      ]
+    },
+    {
+      "id": "w2.m02.b04",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 2,
+      "moduleTitle": "Thinking in Agentic Primitives",
+      "bullet": 4,
+      "label": "Authority",
+      "title": "Authority: what an agent is allowed to do",
+      "covers": [
+        "permissions",
+        "escalation",
+        "approval"
+      ],
+      "permalink": "/deep-dive/w2/m02/b04",
+      "contentPath": "content/lessons/w2/m02/b04.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w2.m02.b03",
+        "w2.m02.b01"
+      ]
+    },
+    {
+      "id": "w2.m02.b05",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 2,
+      "moduleTitle": "Thinking in Agentic Primitives",
+      "bullet": 5,
+      "label": "Trust",
+      "title": "Trust boundaries and untrusted content",
+      "covers": [
+        "prompt injection",
+        "data vs instruction",
+        "provenance"
+      ],
+      "permalink": "/deep-dive/w2/m02/b05",
+      "contentPath": "content/lessons/w2/m02/b05.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w2.m02.b04",
+        "w2.m02.b01"
+      ]
+    },
+    {
+      "id": "w2.m03.b01",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 3,
+      "moduleTitle": "Augmenting Agents with Tools and Data",
+      "bullet": 1,
+      "label": "Deep Dive",
+      "title": "How a tool call actually travels",
+      "covers": [
+        "schema",
+        "invocation",
+        "result",
+        "error"
+      ],
+      "permalink": "/deep-dive/w2/m03/b01",
+      "contentPath": "content/lessons/w2/m03/b01.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": []
+    },
+    {
+      "id": "w2.m03.b02",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 3,
+      "moduleTitle": "Augmenting Agents with Tools and Data",
+      "bullet": 2,
+      "label": "Tool Design",
+      "title": "Designing tools an agent can use correctly",
+      "covers": [
+        "naming",
+        "granularity",
+        "hints",
+        "failure messages"
+      ],
+      "permalink": "/deep-dive/w2/m03/b02",
+      "contentPath": "content/lessons/w2/m03/b02.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w2.m03.b01"
+      ]
+    },
+    {
+      "id": "w2.m03.b03",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 3,
+      "moduleTitle": "Augmenting Agents with Tools and Data",
+      "bullet": 3,
+      "label": "External Tools",
+      "title": "External tools and protocols",
+      "covers": [
+        "MCP",
+        "connectors",
+        "auth",
+        "rate limits"
+      ],
+      "permalink": "/deep-dive/w2/m03/b03",
+      "contentPath": "content/lessons/w2/m03/b03.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w2.m03.b02",
+        "w2.m03.b01"
+      ]
+    },
+    {
+      "id": "w2.m03.b04",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 3,
+      "moduleTitle": "Augmenting Agents with Tools and Data",
+      "bullet": 4,
+      "label": "Internal Tools",
+      "title": "Internal tools over your own systems",
+      "covers": [
+        "wrapping APIs",
+        "safety",
+        "observability"
+      ],
+      "permalink": "/deep-dive/w2/m03/b04",
+      "contentPath": "content/lessons/w2/m03/b04.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w2.m03.b03",
+        "w2.m03.b01"
+      ]
+    },
+    {
+      "id": "w2.m03.b05",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 3,
+      "moduleTitle": "Augmenting Agents with Tools and Data",
+      "bullet": 5,
+      "label": "Practice",
+      "title": "Putting a real tool into an agent’s hands",
+      "covers": [
+        "end-to-end",
+        "testing",
+        "iteration"
+      ],
+      "permalink": "/deep-dive/w2/m03/b05",
+      "contentPath": "content/lessons/w2/m03/b05.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w2.m03.b04",
+        "w2.m03.b01"
+      ]
+    },
+    {
+      "id": "w2.m04.b01",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 4,
+      "moduleTitle": "Designing Custom Agentic Systems",
+      "bullet": 1,
+      "label": "Direct Work",
+      "title": "Working directly with an agent, well",
+      "covers": [
+        "framing",
+        "feedback",
+        "verification"
+      ],
+      "permalink": "/deep-dive/w2/m04/b01",
+      "contentPath": "content/lessons/w2/m04/b01.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": []
+    },
+    {
+      "id": "w2.m04.b02",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 4,
+      "moduleTitle": "Designing Custom Agentic Systems",
+      "bullet": 2,
+      "label": "Subagents",
+      "title": "Subagents as context isolation",
+      "covers": [
+        "delegation",
+        "handoff",
+        "cost"
+      ],
+      "permalink": "/deep-dive/w2/m04/b02",
+      "contentPath": "content/lessons/w2/m04/b02.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w2.m04.b01"
+      ]
+    },
+    {
+      "id": "w2.m04.b03",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 4,
+      "moduleTitle": "Designing Custom Agentic Systems",
+      "bullet": 3,
+      "label": "Multiple Threads",
+      "title": "Running several threads without losing the plot",
+      "covers": [
+        "parallelism",
+        "merge",
+        "conflict"
+      ],
+      "permalink": "/deep-dive/w2/m04/b03",
+      "contentPath": "content/lessons/w2/m04/b03.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w2.m04.b02",
+        "w2.m04.b01"
+      ]
+    },
+    {
+      "id": "w2.m04.b04",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 4,
+      "moduleTitle": "Designing Custom Agentic Systems",
+      "bullet": 4,
+      "label": "Background Tasks",
+      "title": "Background and long-running work",
+      "covers": [
+        "scheduling",
+        "notification",
+        "recovery"
+      ],
+      "permalink": "/deep-dive/w2/m04/b04",
+      "contentPath": "content/lessons/w2/m04/b04.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w2.m04.b03",
+        "w2.m04.b01"
+      ]
+    },
+    {
+      "id": "w2.m04.b05",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 4,
+      "moduleTitle": "Designing Custom Agentic Systems",
+      "bullet": 5,
+      "label": "Team Workflows",
+      "title": "Agentic workflows across a team",
+      "covers": [
+        "shared config",
+        "conventions",
+        "review"
+      ],
+      "permalink": "/deep-dive/w2/m04/b05",
+      "contentPath": "content/lessons/w2/m04/b05.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w2.m04.b04",
+        "w2.m04.b01"
+      ]
+    },
+    {
+      "id": "w2.m05.b01",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 5,
+      "moduleTitle": "Engineering Multi-Agent Systems",
+      "bullet": 1,
+      "label": "Roles",
+      "title": "Roles and responsibility boundaries",
+      "covers": [
+        "specialisation",
+        "overlap",
+        "ownership"
+      ],
+      "permalink": "/deep-dive/w2/m05/b01",
+      "contentPath": "content/lessons/w2/m05/b01.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": []
+    },
+    {
+      "id": "w2.m05.b02",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 5,
+      "moduleTitle": "Engineering Multi-Agent Systems",
+      "bullet": 2,
+      "label": "Context",
+      "title": "Context sharing between agents",
+      "covers": [
+        "handoff payloads",
+        "duplication",
+        "drift"
+      ],
+      "permalink": "/deep-dive/w2/m05/b02",
+      "contentPath": "content/lessons/w2/m05/b02.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w2.m05.b01"
+      ]
+    },
+    {
+      "id": "w2.m05.b03",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 5,
+      "moduleTitle": "Engineering Multi-Agent Systems",
+      "bullet": 3,
+      "label": "Communication",
+      "title": "How agents talk without flooding each other",
+      "covers": [
+        "messages",
+        "summaries",
+        "protocols"
+      ],
+      "permalink": "/deep-dive/w2/m05/b03",
+      "contentPath": "content/lessons/w2/m05/b03.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w2.m05.b02",
+        "w2.m05.b01"
+      ]
+    },
+    {
+      "id": "w2.m05.b04",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 5,
+      "moduleTitle": "Engineering Multi-Agent Systems",
+      "bullet": 4,
+      "label": "Coordination",
+      "title": "Coordination and contention",
+      "covers": [
+        "ordering",
+        "locking",
+        "deadlock"
+      ],
+      "permalink": "/deep-dive/w2/m05/b04",
+      "contentPath": "content/lessons/w2/m05/b04.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w2.m05.b03",
+        "w2.m05.b01"
+      ]
+    },
+    {
+      "id": "w2.m05.b05",
+      "week": 2,
+      "weekTitle": "Agents",
+      "module": 5,
+      "moduleTitle": "Engineering Multi-Agent Systems",
+      "bullet": 5,
+      "label": "Evaluation",
+      "title": "Evaluating a system, not a prompt",
+      "covers": [
+        "task success",
+        "traces",
+        "regression"
+      ],
+      "permalink": "/deep-dive/w2/m05/b05",
+      "contentPath": "content/lessons/w2/m05/b05.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w2.m05.b04",
+        "w2.m05.b01"
+      ]
+    },
+    {
+      "id": "w3.m01.b01",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 1,
+      "moduleTitle": "Mechanics Behind Product Engineering",
+      "bullet": 1,
+      "label": "Shift",
+      "title": "What changes when generation is cheap",
+      "covers": [
+        "cost of code",
+        "bottleneck moves"
+      ],
+      "permalink": "/deep-dive/w3/m01/b01",
+      "contentPath": "content/lessons/w3/m01/b01.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w1.m01.b02"
+      ]
+    },
+    {
+      "id": "w3.m01.b02",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 1,
+      "moduleTitle": "Mechanics Behind Product Engineering",
+      "bullet": 2,
+      "label": "Ownership",
+      "title": "Owning outcomes you did not type",
+      "covers": [
+        "accountability",
+        "review depth"
+      ],
+      "permalink": "/deep-dive/w3/m01/b02",
+      "contentPath": "content/lessons/w3/m01/b02.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w3.m01.b01"
+      ]
+    },
+    {
+      "id": "w3.m01.b03",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 1,
+      "moduleTitle": "Mechanics Behind Product Engineering",
+      "bullet": 3,
+      "label": "Judgment",
+      "title": "Judgment as the scarce input",
+      "covers": [
+        "taste",
+        "tradeoffs",
+        "when to stop"
+      ],
+      "permalink": "/deep-dive/w3/m01/b03",
+      "contentPath": "content/lessons/w3/m01/b03.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w3.m01.b02",
+        "w3.m01.b01"
+      ]
+    },
+    {
+      "id": "w3.m01.b04",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 1,
+      "moduleTitle": "Mechanics Behind Product Engineering",
+      "bullet": 4,
+      "label": "Systems Thinking",
+      "title": "Seeing the system, not the diff",
+      "covers": [
+        "coupling",
+        "second-order effects"
+      ],
+      "permalink": "/deep-dive/w3/m01/b04",
+      "contentPath": "content/lessons/w3/m01/b04.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w3.m01.b03",
+        "w3.m01.b01"
+      ]
+    },
+    {
+      "id": "w3.m01.b05",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 1,
+      "moduleTitle": "Mechanics Behind Product Engineering",
+      "bullet": 5,
+      "label": "Leverage",
+      "title": "Where leverage actually comes from",
+      "covers": [
+        "repeatability",
+        "compounding",
+        "automation"
+      ],
+      "permalink": "/deep-dive/w3/m01/b05",
+      "contentPath": "content/lessons/w3/m01/b05.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w3.m01.b04",
+        "w3.m01.b01"
+      ]
+    },
+    {
+      "id": "w3.m02.b01",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 2,
+      "moduleTitle": "Translating Intent into Agent Work",
+      "bullet": 1,
+      "label": "Intent",
+      "title": "Getting to the real intent behind a request",
+      "covers": [
+        "problem framing",
+        "assumptions"
+      ],
+      "permalink": "/deep-dive/w3/m02/b01",
+      "contentPath": "content/lessons/w3/m02/b01.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": []
+    },
+    {
+      "id": "w3.m02.b02",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 2,
+      "moduleTitle": "Translating Intent into Agent Work",
+      "bullet": 2,
+      "label": "Context",
+      "title": "Supplying the context the work needs",
+      "covers": [
+        "codebase",
+        "constraints",
+        "history"
+      ],
+      "permalink": "/deep-dive/w3/m02/b02",
+      "contentPath": "content/lessons/w3/m02/b02.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w3.m02.b01"
+      ]
+    },
+    {
+      "id": "w3.m02.b03",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 2,
+      "moduleTitle": "Translating Intent into Agent Work",
+      "bullet": 3,
+      "label": "Requirements",
+      "title": "Requirements an agent can act on",
+      "covers": [
+        "acceptance",
+        "non-goals",
+        "edge cases"
+      ],
+      "permalink": "/deep-dive/w3/m02/b03",
+      "contentPath": "content/lessons/w3/m02/b03.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w3.m02.b02",
+        "w3.m02.b01"
+      ]
+    },
+    {
+      "id": "w3.m02.b04",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 2,
+      "moduleTitle": "Translating Intent into Agent Work",
+      "bullet": 4,
+      "label": "Specifications",
+      "title": "Specifications as the durable artefact",
+      "covers": [
+        "structure",
+        "traceability"
+      ],
+      "permalink": "/deep-dive/w3/m02/b04",
+      "contentPath": "content/lessons/w3/m02/b04.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w3.m02.b03",
+        "w3.m02.b01"
+      ]
+    },
+    {
+      "id": "w3.m02.b05",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 2,
+      "moduleTitle": "Translating Intent into Agent Work",
+      "bullet": 5,
+      "label": "Decomposition",
+      "title": "Cutting work into agent-sized pieces",
+      "covers": [
+        "slices",
+        "dependencies",
+        "parallelism"
+      ],
+      "permalink": "/deep-dive/w3/m02/b05",
+      "contentPath": "content/lessons/w3/m02/b05.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w3.m02.b04",
+        "w3.m02.b01"
+      ]
+    },
+    {
+      "id": "w3.m02.b06",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 2,
+      "moduleTitle": "Translating Intent into Agent Work",
+      "bullet": 6,
+      "label": "Evaluation",
+      "title": "Deciding in advance what \"done\" means",
+      "covers": [
+        "criteria",
+        "evidence"
+      ],
+      "permalink": "/deep-dive/w3/m02/b06",
+      "contentPath": "content/lessons/w3/m02/b06.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w3.m02.b05",
+        "w3.m02.b01"
+      ]
+    },
+    {
+      "id": "w3.m03.b01",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 3,
+      "moduleTitle": "AI-Native Product Development",
+      "bullet": 1,
+      "label": "Exploration",
+      "title": "Exploring a problem space with an agent",
+      "covers": [
+        "spikes",
+        "prototypes",
+        "discard cost"
+      ],
+      "permalink": "/deep-dive/w3/m03/b01",
+      "contentPath": "content/lessons/w3/m03/b01.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": []
+    },
+    {
+      "id": "w3.m03.b02",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 3,
+      "moduleTitle": "AI-Native Product Development",
+      "bullet": 2,
+      "label": "Planning",
+      "title": "Planning that survives contact with generation",
+      "covers": [
+        "sequencing",
+        "risk first"
+      ],
+      "permalink": "/deep-dive/w3/m03/b02",
+      "contentPath": "content/lessons/w3/m03/b02.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w3.m03.b01"
+      ]
+    },
+    {
+      "id": "w3.m03.b03",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 3,
+      "moduleTitle": "AI-Native Product Development",
+      "bullet": 3,
+      "label": "Execution",
+      "title": "Execution loops that keep you in control",
+      "covers": [
+        "increments",
+        "checkpoints"
+      ],
+      "permalink": "/deep-dive/w3/m03/b03",
+      "contentPath": "content/lessons/w3/m03/b03.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w3.m03.b02",
+        "w3.m03.b01"
+      ]
+    },
+    {
+      "id": "w3.m03.b04",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 3,
+      "moduleTitle": "AI-Native Product Development",
+      "bullet": 4,
+      "label": "Feedback",
+      "title": "Feedback the agent can actually use",
+      "covers": [
+        "tests",
+        "logs",
+        "human notes"
+      ],
+      "permalink": "/deep-dive/w3/m03/b04",
+      "contentPath": "content/lessons/w3/m03/b04.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w3.m03.b03",
+        "w3.m03.b01"
+      ]
+    },
+    {
+      "id": "w3.m03.b05",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 3,
+      "moduleTitle": "AI-Native Product Development",
+      "bullet": 5,
+      "label": "Engineering",
+      "title": "Keeping engineering standards under speed",
+      "covers": [
+        "structure",
+        "debt",
+        "refactor cadence"
+      ],
+      "permalink": "/deep-dive/w3/m03/b05",
+      "contentPath": "content/lessons/w3/m03/b05.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w3.m03.b04",
+        "w3.m03.b01"
+      ]
+    },
+    {
+      "id": "w3.m03.b06",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 3,
+      "moduleTitle": "AI-Native Product Development",
+      "bullet": 6,
+      "label": "Delivery",
+      "title": "Shipping and what has to be true first",
+      "covers": [
+        "release",
+        "rollback",
+        "comms"
+      ],
+      "permalink": "/deep-dive/w3/m03/b06",
+      "contentPath": "content/lessons/w3/m03/b06.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w3.m03.b05",
+        "w3.m03.b01"
+      ]
+    },
+    {
+      "id": "w3.m04.b01",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 4,
+      "moduleTitle": "Verifying Product Outcomes",
+      "bullet": 1,
+      "label": "Acceptance",
+      "title": "Acceptance as a decision, not a ceremony",
+      "covers": [
+        "criteria",
+        "evidence",
+        "sign-off"
+      ],
+      "permalink": "/deep-dive/w3/m04/b01",
+      "contentPath": "content/lessons/w3/m04/b01.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": []
+    },
+    {
+      "id": "w3.m04.b02",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 4,
+      "moduleTitle": "Verifying Product Outcomes",
+      "bullet": 2,
+      "label": "Review",
+      "title": "Reviewing generated change at the right altitude",
+      "covers": [
+        "what to read",
+        "what to trust"
+      ],
+      "permalink": "/deep-dive/w3/m04/b02",
+      "contentPath": "content/lessons/w3/m04/b02.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w3.m04.b01"
+      ]
+    },
+    {
+      "id": "w3.m04.b03",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 4,
+      "moduleTitle": "Verifying Product Outcomes",
+      "bullet": 3,
+      "label": "Verification",
+      "title": "Verification beyond \"the tests pass\"",
+      "covers": [
+        "behaviour",
+        "invariants",
+        "manual checks"
+      ],
+      "permalink": "/deep-dive/w3/m04/b03",
+      "contentPath": "content/lessons/w3/m04/b03.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w3.m04.b02",
+        "w3.m04.b01"
+      ]
+    },
+    {
+      "id": "w3.m04.b04",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 4,
+      "moduleTitle": "Verifying Product Outcomes",
+      "bullet": 4,
+      "label": "System Diff",
+      "title": "Reading the system diff, not the code diff",
+      "covers": [
+        "surface change",
+        "contract change"
+      ],
+      "permalink": "/deep-dive/w3/m04/b04",
+      "contentPath": "content/lessons/w3/m04/b04.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w3.m04.b03",
+        "w3.m04.b01"
+      ]
+    },
+    {
+      "id": "w3.m04.b05",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 4,
+      "moduleTitle": "Verifying Product Outcomes",
+      "bullet": 5,
+      "label": "Quality Gates",
+      "title": "Gates that block the right things",
+      "covers": [
+        "automation",
+        "false positives",
+        "escape hatches"
+      ],
+      "permalink": "/deep-dive/w3/m04/b05",
+      "contentPath": "content/lessons/w3/m04/b05.mdx",
+      "volatility": "low",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w3.m04.b04",
+        "w3.m04.b01"
+      ]
+    },
+    {
+      "id": "w3.m05.b01",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 5,
+      "moduleTitle": "Products That Learn After Release",
+      "bullet": 1,
+      "label": "Signals",
+      "title": "Signals worth collecting",
+      "covers": [
+        "usage",
+        "errors",
+        "qualitative"
+      ],
+      "permalink": "/deep-dive/w3/m05/b01",
+      "contentPath": "content/lessons/w3/m05/b01.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": []
+    },
+    {
+      "id": "w3.m05.b02",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 5,
+      "moduleTitle": "Products That Learn After Release",
+      "bullet": 2,
+      "label": "Observation",
+      "title": "Observing behaviour without drowning in it",
+      "covers": [
+        "sampling",
+        "tracing",
+        "privacy"
+      ],
+      "permalink": "/deep-dive/w3/m05/b02",
+      "contentPath": "content/lessons/w3/m05/b02.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w3.m05.b01"
+      ]
+    },
+    {
+      "id": "w3.m05.b03",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 5,
+      "moduleTitle": "Products That Learn After Release",
+      "bullet": 3,
+      "label": "Synthesis",
+      "title": "Turning observation into a claim",
+      "covers": [
+        "aggregation",
+        "bias",
+        "confidence"
+      ],
+      "permalink": "/deep-dive/w3/m05/b03",
+      "contentPath": "content/lessons/w3/m05/b03.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w3.m05.b02",
+        "w3.m05.b01"
+      ]
+    },
+    {
+      "id": "w3.m05.b04",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 5,
+      "moduleTitle": "Products That Learn After Release",
+      "bullet": 4,
+      "label": "Decisions",
+      "title": "Deciding from evidence",
+      "covers": [
+        "thresholds",
+        "reversibility"
+      ],
+      "permalink": "/deep-dive/w3/m05/b04",
+      "contentPath": "content/lessons/w3/m05/b04.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w3.m05.b03",
+        "w3.m05.b01"
+      ]
+    },
+    {
+      "id": "w3.m05.b05",
+      "week": 3,
+      "weekTitle": "Product",
+      "module": 5,
+      "moduleTitle": "Products That Learn After Release",
+      "bullet": 5,
+      "label": "Feedback Loops",
+      "title": "Closing the loop back into the product",
+      "covers": [
+        "cadence",
+        "ownership"
+      ],
+      "permalink": "/deep-dive/w3/m05/b05",
+      "contentPath": "content/lessons/w3/m05/b05.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w3.m05.b04",
+        "w3.m05.b01"
+      ]
+    },
+    {
+      "id": "w4.m01.b01",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 1,
+      "moduleTitle": "Mechanics Behind Autonomous Systems",
+      "bullet": 1,
+      "label": "Autonomy",
+      "title": "What autonomy actually means here",
+      "covers": [
+        "degrees",
+        "supervision",
+        "blast radius"
+      ],
+      "permalink": "/deep-dive/w4/m01/b01",
+      "contentPath": "content/lessons/w4/m01/b01.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w1.m01.b02"
+      ]
+    },
+    {
+      "id": "w4.m01.b02",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 1,
+      "moduleTitle": "Mechanics Behind Autonomous Systems",
+      "bullet": 2,
+      "label": "Runtime",
+      "title": "The runtime an autonomous system lives in",
+      "covers": [
+        "process",
+        "scheduling",
+        "limits"
+      ],
+      "permalink": "/deep-dive/w4/m01/b02",
+      "contentPath": "content/lessons/w4/m01/b02.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w4.m01.b01"
+      ]
+    },
+    {
+      "id": "w4.m01.b03",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 1,
+      "moduleTitle": "Mechanics Behind Autonomous Systems",
+      "bullet": 3,
+      "label": "State",
+      "title": "State that survives restarts",
+      "covers": [
+        "durability",
+        "idempotence",
+        "resume"
+      ],
+      "permalink": "/deep-dive/w4/m01/b03",
+      "contentPath": "content/lessons/w4/m01/b03.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w4.m01.b02",
+        "w4.m01.b01"
+      ]
+    },
+    {
+      "id": "w4.m01.b04",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 1,
+      "moduleTitle": "Mechanics Behind Autonomous Systems",
+      "bullet": 4,
+      "label": "Control",
+      "title": "Control surfaces: start, stop, override",
+      "covers": [
+        "kill switch",
+        "pause",
+        "manual take-over"
+      ],
+      "permalink": "/deep-dive/w4/m01/b04",
+      "contentPath": "content/lessons/w4/m01/b04.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w4.m01.b03",
+        "w4.m01.b01"
+      ]
+    },
+    {
+      "id": "w4.m01.b05",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 1,
+      "moduleTitle": "Mechanics Behind Autonomous Systems",
+      "bullet": 5,
+      "label": "Observation and Recovery",
+      "title": "Noticing failure and getting back on track",
+      "covers": [
+        "health",
+        "alerting",
+        "self-repair"
+      ],
+      "permalink": "/deep-dive/w4/m01/b05",
+      "contentPath": "content/lessons/w4/m01/b05.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w4.m01.b04",
+        "w4.m01.b01"
+      ]
+    },
+    {
+      "id": "w4.m02.b01",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 2,
+      "moduleTitle": "Building Portable Agent Control Planes",
+      "bullet": 1,
+      "label": "Configuration",
+      "title": "Configuration as code, not as clicks",
+      "covers": [
+        "files",
+        "precedence",
+        "secrets"
+      ],
+      "permalink": "/deep-dive/w4/m02/b01",
+      "contentPath": "content/lessons/w4/m02/b01.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": []
+    },
+    {
+      "id": "w4.m02.b02",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 2,
+      "moduleTitle": "Building Portable Agent Control Planes",
+      "bullet": 2,
+      "label": "Portability",
+      "title": "Running the same setup anywhere",
+      "covers": [
+        "machines",
+        "CI",
+        "cloud"
+      ],
+      "permalink": "/deep-dive/w4/m02/b02",
+      "contentPath": "content/lessons/w4/m02/b02.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w4.m02.b01"
+      ]
+    },
+    {
+      "id": "w4.m02.b03",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 2,
+      "moduleTitle": "Building Portable Agent Control Planes",
+      "bullet": 3,
+      "label": "Environment",
+      "title": "Environment parity and drift",
+      "covers": [
+        "containers",
+        "toolchain",
+        "reproducibility"
+      ],
+      "permalink": "/deep-dive/w4/m02/b03",
+      "contentPath": "content/lessons/w4/m02/b03.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w4.m02.b02",
+        "w4.m02.b01"
+      ]
+    },
+    {
+      "id": "w4.m02.b04",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 2,
+      "moduleTitle": "Building Portable Agent Control Planes",
+      "bullet": 4,
+      "label": "Knowledge Delivery",
+      "title": "Getting knowledge to the agent that needs it",
+      "covers": [
+        "skills",
+        "docs",
+        "retrieval"
+      ],
+      "permalink": "/deep-dive/w4/m02/b04",
+      "contentPath": "content/lessons/w4/m02/b04.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w4.m02.b03",
+        "w4.m02.b01"
+      ]
+    },
+    {
+      "id": "w4.m02.b05",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 2,
+      "moduleTitle": "Building Portable Agent Control Planes",
+      "bullet": 5,
+      "label": "Operations",
+      "title": "Operating the control plane day to day",
+      "covers": [
+        "rollout",
+        "versioning",
+        "incident"
+      ],
+      "permalink": "/deep-dive/w4/m02/b05",
+      "contentPath": "content/lessons/w4/m02/b05.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w4.m02.b04",
+        "w4.m02.b01"
+      ]
+    },
+    {
+      "id": "w4.m03.b01",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 3,
+      "moduleTitle": "Orchestrating Autonomous Agent Teams",
+      "bullet": 1,
+      "label": "Organization",
+      "title": "Organising agents around work, not org charts",
+      "covers": [
+        "topology",
+        "granularity"
+      ],
+      "permalink": "/deep-dive/w4/m03/b01",
+      "contentPath": "content/lessons/w4/m03/b01.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": []
+    },
+    {
+      "id": "w4.m03.b02",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 3,
+      "moduleTitle": "Orchestrating Autonomous Agent Teams",
+      "bullet": 2,
+      "label": "Coordination",
+      "title": "Coordination without a central bottleneck",
+      "covers": [
+        "queues",
+        "claims",
+        "backpressure"
+      ],
+      "permalink": "/deep-dive/w4/m03/b02",
+      "contentPath": "content/lessons/w4/m03/b02.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w4.m03.b01"
+      ]
+    },
+    {
+      "id": "w4.m03.b03",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 3,
+      "moduleTitle": "Orchestrating Autonomous Agent Teams",
+      "bullet": 3,
+      "label": "Parallelism",
+      "title": "Parallelism and the cost of merging",
+      "covers": [
+        "fan-out",
+        "conflict",
+        "serialisation points"
+      ],
+      "permalink": "/deep-dive/w4/m03/b03",
+      "contentPath": "content/lessons/w4/m03/b03.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w4.m03.b02",
+        "w4.m03.b01"
+      ]
+    },
+    {
+      "id": "w4.m03.b04",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 3,
+      "moduleTitle": "Orchestrating Autonomous Agent Teams",
+      "bullet": 4,
+      "label": "Routing",
+      "title": "Routing work to the right agent",
+      "covers": [
+        "capability",
+        "cost",
+        "fallback"
+      ],
+      "permalink": "/deep-dive/w4/m03/b04",
+      "contentPath": "content/lessons/w4/m03/b04.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w4.m03.b03",
+        "w4.m03.b01"
+      ]
+    },
+    {
+      "id": "w4.m03.b05",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 3,
+      "moduleTitle": "Orchestrating Autonomous Agent Teams",
+      "bullet": 5,
+      "label": "Supervision",
+      "title": "Supervising without watching everything",
+      "covers": [
+        "exceptions",
+        "sampling",
+        "escalation"
+      ],
+      "permalink": "/deep-dive/w4/m03/b05",
+      "contentPath": "content/lessons/w4/m03/b05.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w4.m03.b04",
+        "w4.m03.b01"
+      ]
+    },
+    {
+      "id": "w4.m04.b01",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 4,
+      "moduleTitle": "Automating Work Beyond Code",
+      "bullet": 1,
+      "label": "Events",
+      "title": "Events as the trigger surface",
+      "covers": [
+        "sources",
+        "filtering",
+        "idempotence"
+      ],
+      "permalink": "/deep-dive/w4/m04/b01",
+      "contentPath": "content/lessons/w4/m04/b01.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": []
+    },
+    {
+      "id": "w4.m04.b02",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 4,
+      "moduleTitle": "Automating Work Beyond Code",
+      "bullet": 2,
+      "label": "Hooks",
+      "title": "Hooks: deterministic control around a model",
+      "covers": [
+        "pre",
+        "post",
+        "blocking"
+      ],
+      "permalink": "/deep-dive/w4/m04/b02",
+      "contentPath": "content/lessons/w4/m04/b02.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w4.m04.b01"
+      ]
+    },
+    {
+      "id": "w4.m04.b03",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 4,
+      "moduleTitle": "Automating Work Beyond Code",
+      "bullet": 3,
+      "label": "Pipelines",
+      "title": "Pipelines that chain agent work",
+      "covers": [
+        "stages",
+        "artefacts",
+        "failure"
+      ],
+      "permalink": "/deep-dive/w4/m04/b03",
+      "contentPath": "content/lessons/w4/m04/b03.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w4.m04.b02",
+        "w4.m04.b01"
+      ]
+    },
+    {
+      "id": "w4.m04.b04",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 4,
+      "moduleTitle": "Automating Work Beyond Code",
+      "bullet": 4,
+      "label": "Push Systems",
+      "title": "Push systems that reach you, not the reverse",
+      "covers": [
+        "notification",
+        "summarisation",
+        "noise"
+      ],
+      "permalink": "/deep-dive/w4/m04/b04",
+      "contentPath": "content/lessons/w4/m04/b04.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w4.m04.b03",
+        "w4.m04.b01"
+      ]
+    },
+    {
+      "id": "w4.m04.b05",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 4,
+      "moduleTitle": "Automating Work Beyond Code",
+      "bullet": 5,
+      "label": "Boundaries",
+      "title": "Boundaries: what must never be automated",
+      "covers": [
+        "irreversibility",
+        "authority",
+        "consent"
+      ],
+      "permalink": "/deep-dive/w4/m04/b05",
+      "contentPath": "content/lessons/w4/m04/b05.mdx",
+      "volatility": "high",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w4.m04.b04",
+        "w4.m04.b01"
+      ]
+    },
+    {
+      "id": "w4.m05.b01",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 5,
+      "moduleTitle": "Building Self-Improving Engineering Systems",
+      "bullet": 1,
+      "label": "Feedback",
+      "title": "Feedback the system can consume",
+      "covers": [
+        "signals",
+        "labels",
+        "traces"
+      ],
+      "permalink": "/deep-dive/w4/m05/b01",
+      "contentPath": "content/lessons/w4/m05/b01.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": []
+    },
+    {
+      "id": "w4.m05.b02",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 5,
+      "moduleTitle": "Building Self-Improving Engineering Systems",
+      "bullet": 2,
+      "label": "Evaluation",
+      "title": "Evaluation harnesses that catch regressions",
+      "covers": [
+        "datasets",
+        "metrics",
+        "drift"
+      ],
+      "permalink": "/deep-dive/w4/m05/b02",
+      "contentPath": "content/lessons/w4/m05/b02.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w4.m05.b01"
+      ]
+    },
+    {
+      "id": "w4.m05.b03",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 5,
+      "moduleTitle": "Building Self-Improving Engineering Systems",
+      "bullet": 3,
+      "label": "Distillation",
+      "title": "Distilling what worked into reusable knowledge",
+      "covers": [
+        "patterns",
+        "skills",
+        "docs"
+      ],
+      "permalink": "/deep-dive/w4/m05/b03",
+      "contentPath": "content/lessons/w4/m05/b03.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w4.m05.b02",
+        "w4.m05.b01"
+      ]
+    },
+    {
+      "id": "w4.m05.b04",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 5,
+      "moduleTitle": "Building Self-Improving Engineering Systems",
+      "bullet": 4,
+      "label": "Optimization",
+      "title": "Optimising cost, latency, and quality together",
+      "covers": [
+        "tradeoffs",
+        "routing",
+        "caching"
+      ],
+      "permalink": "/deep-dive/w4/m05/b04",
+      "contentPath": "content/lessons/w4/m05/b04.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w4.m05.b03",
+        "w4.m05.b01"
+      ]
+    },
+    {
+      "id": "w4.m05.b05",
+      "week": 4,
+      "weekTitle": "Takeoff",
+      "module": 5,
+      "moduleTitle": "Building Self-Improving Engineering Systems",
+      "bullet": 5,
+      "label": "Governance",
+      "title": "Governance that does not stop the work",
+      "covers": [
+        "policy",
+        "audit",
+        "accountability"
+      ],
+      "permalink": "/deep-dive/w4/m05/b05",
+      "contentPath": "content/lessons/w4/m05/b05.mdx",
+      "volatility": "medium",
+      "personas": [
+        "junior",
+        "mid",
+        "senior",
+        "lead",
+        "cto"
+      ],
+      "estMinutes": 12,
+      "prerequisites": [
+        "w4.m05.b04",
+        "w4.m05.b01"
+      ]
+    }
+  ]
+}

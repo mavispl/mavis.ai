@@ -1,0 +1,13 @@
+---
+term: Instruction following
+slug: instruction-following
+summary: "A learned behaviour added after pre-training, not a property of next-token prediction. Strong and reliable, but still a statistical tendency."
+category: Mechanics
+relatedTerms: [Generalization, Attention]
+lessons: [w1.m01.b02]
+verifiedOn: 2026-09-04
+---
+
+Raw next-token prediction over web text would *continue* your instruction rather than obey it. Obedience comes from fine-tuning on instruction-response pairs and preference optimisation.
+
+Two things follow. Instructions phrased like the training distribution work better than clever ones. And instruction following can be outcompeted by a sufficiently strong pattern elsewhere in the context — the mechanism behind prompt injection.

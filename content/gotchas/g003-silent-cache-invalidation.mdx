@@ -1,0 +1,36 @@
+---
+id: g003
+title: Don't put anything volatile in a cached prompt prefix
+slug: silent-cache-invalidation
+category: Cost & Performance
+severity: high
+whatGoesWrong: >
+  Costs rise several-fold with no change in traffic, no error, and no change in output
+  quality. Prompt caching silently stopped working, and because nothing failed, nobody
+  looks until the invoice arrives.
+whyItHappens: >
+  Caching is a prefix match. Any byte change anywhere in the prefix invalidates
+  everything after it. A timestamp in the system prompt, a request id, a tool list built
+  by iterating an unordered map, or JSON serialised with non-deterministic key order all
+  produce a new prefix on every request.
+howToDetect: >
+  Check the cache-read token count in the usage object across repeated requests that
+  should share a prefix. Zero, or a value that drops to zero after a deploy, is the
+  signal. This is worth a dashboard, not a periodic look.
+fix: >
+  Order the request so stability decreases left to right — frozen system prompt and
+  deterministically ordered tools first, volatile content after the last breakpoint.
+  Sort keys when serialising. Move per-request identifiers into the user message.
+  Where an operator instruction must arrive mid-conversation, append it as a message
+  rather than editing the top-level system prompt.
+relatedLessons: [w1.m01.b04]
+sources:
+  - url: https://platform.claude.com/docs/en/about-claude/pricing
+    title: Pricing — prompt caching
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+---
+
+The reason this one bites so often is that the failure is invisible in every signal a
+team normally watches: no exception, no latency spike, no quality regression. Only cost.

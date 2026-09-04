@@ -1,0 +1,13 @@
+---
+term: Autoregressive
+slug: autoregressive
+summary: "Generating one token at a time, each conditioned on everything produced so far. There is no plan for the sentence before it starts."
+category: Mechanics
+relatedTerms: [Completion, Reasoning tokens]
+lessons: [w1.m01.b02]
+verifiedOn: 2026-09-04
+---
+
+The model produces a distribution over the vocabulary for the next token, one is selected, and the whole sequence is fed back in.
+
+The useful implication: **the start of a response constrains the rest of it more than the prompt does.** Once the first sentence commits to a direction, every later token is conditioned on that commitment. It is also why reasoning-before-answering works — intermediate results end up in the sequence for the answer to condition on.

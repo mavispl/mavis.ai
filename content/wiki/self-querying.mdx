@@ -1,0 +1,16 @@
+---
+term: Self-querying
+slug: self-querying
+aliases: [Self-critique, Self-review]
+summary: "Asking a model to review its own output. Helps when the review is a genuinely different task; collapses into agreement when the original framing is present."
+category: Mechanics
+relatedTerms: [Reasoning tokens, Confabulation]
+lessons: [w1.m01.b06]
+verifiedOn: 2026-09-04
+---
+
+It helps when the second pass is a different prediction problem over material now in context — "here is a function, list its edge cases" is not the same task as "write this function".
+
+It does not help when the original answer sits in the context with its original framing, because the likeliest continuation of a confident answer plus "is that right?" is agreement. You get a continuation, not a second opinion.
+
+**Verification needs an outside source of truth** — tests, types, a source document, a tool that can disagree — or it becomes a longer version of the original answer. "Ask the AI to check its own work" is widely deployed as a control and is not one.

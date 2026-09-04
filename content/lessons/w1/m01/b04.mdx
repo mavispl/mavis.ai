@@ -1,0 +1,147 @@
+---
+id: w1.m01.b04
+title: Choosing and mixing models without guessing
+week: 1
+weekTitle: Core
+module: 1
+moduleTitle: Mechanics Behind Generative AI
+bullet: 4
+summary: Model choice is a routing decision made per task, not a procurement decision made once. What changes the bill is rarely the sticker price — it is caching, batching, and which work you send where.
+personas: [mid, senior, lead, cto]
+prerequisites: [w1.m01.b03, w1.m01.b01]
+related: [w1.m01.b02, w1.m01.b05]
+tags: [providers, pricing, cost, model-routing]
+defines: [Prompt caching, Model routing, Model mixing, Effort]
+sources:
+  - url: https://platform.claude.com/docs/en/about-claude/pricing
+    title: Pricing
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+  - url: https://www.cloudzero.com/blog/llm-api-pricing-comparison/
+    title: "LLM API pricing comparison in 2026: every major model ranked by cost"
+    publisher: CloudZero
+    accessedOn: 2026-09-04
+  - url: https://www.morphllm.com/llm-context-window-comparison
+    title: "LLM Context Window Comparison (2026)"
+    publisher: Morph
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+volatility: high
+estMinutes: 13
+checks:
+  - q: Your bill doubled but request volume did not. What do you check first?
+    a: Cache hit rate. A silent cache invalidator — a timestamp in the system prompt, a reordered tool list, non-deterministic JSON key order — turns every request from a cache read at a tenth of the input price into a full-price read, with no error and no change in behaviour.
+    hint: Look for what changed in the prefix, not in the volume.
+  - q: Why is "always use the cheapest model that passes our eval" a flawed cost rule?
+    a: It optimises cost per request rather than cost per completed task. A cheaper model that needs three attempts, more tool calls, or human correction costs more in total — and forfeits cache reuse if you are running a cascade, because caches are model-scoped.
+  - q: You need a 400,000-token document analysed. What must you check before assuming a 1M-context model can do it?
+    a: Whether long context is priced at a premium tier, how much of the window your prompt and tool definitions already consume, and — most importantly — whether accuracy holds at that length, since capacity and usable attention are different things.
+---
+
+Model selection gets treated like a procurement decision: evaluate the options, pick a winner, standardise. That framing produces bad outcomes, because the field re-prices and re-releases on a timescale of weeks, and because the right model is a property of the task, not of the organisation.
+
+The durable skill is not knowing today's leaderboard. It is knowing **which axes to compare on**, and which cost levers actually move the bill.
+
+<Callout tone="warn" title="This page has a short shelf life">
+Specific model names and prices are correct as of the verification date at the top of this page and will drift. The framework will not. Treat every number below as an illustration of a shape, and re-check the current figures against the provider's own pricing page before you commit to anything.
+</Callout>
+
+<Plainly>
+There is no "best model", the way there is no best vehicle. A van and a motorcycle are not competing — they are answers to different questions about how much you are carrying and how fast you need to arrive.
+
+The same applies here. Some work needs the most capable model available and would be actively wasteful anywhere else. Most work does not. The skill is telling those apart before you pay for the wrong one at scale.
+</Plainly>
+
+## The axes that actually matter
+
+**Capability at your task.** Not benchmark scores — your task. Public benchmarks are a weak proxy for whether a model handles your codebase, your domain vocabulary, your output format. Build a small evaluation set from real work before you form an opinion.
+
+**Context window, and usable context.** Advertised windows in 2026 span roughly 200K to several million tokens across the field. But capacity and usable attention are different quantities, and the gap between them widens as the window fills. A million-token window is not a million tokens of reliable recall.
+
+**Price, in both directions.** Output tokens typically cost several times input tokens. A flagship at $5 per million input and $25 per million output has a 5:1 ratio, and a workload that reads a lot and writes a little has a completely different cost profile from one that generates long documents. Compute your own blended rate from your actual input:output ratio — the headline input price alone will mislead you.
+
+**Latency and throughput.** A user-facing autocomplete and an overnight batch job have almost nothing in common as workloads. Some providers offer a premium fast tier that trades money for tokens-per-second; some offer a batch tier that trades latency for a substantial discount — commonly 50%.
+
+**Specialisation.** Small models tuned for classification, extraction, or embedding beat general flagships on those tasks at a fraction of the cost. A flagship model doing sentiment labelling is the most expensive way to get a wrong answer slowly.
+
+**Platform features, not just model capabilities.** Two providers can offer comparable raw capabilities and very different platforms around them. The features that change what you can build are things like prompt caching and its pricing, a batch tier, structured outputs and strict schema enforcement, server-side tools, long-running or managed agent surfaces, and data-residency controls. A model that scores marginally higher but lacks caching will usually lose on total cost for any workload with a stable prefix.
+
+**Settings, and which ones still exist.** The knobs have changed materially. Sampling controls such as temperature and top-p have been removed on several current models in favour of an effort control, and thinking configuration has moved from a fixed token budget to an adaptive mode. Two consequences: code written against an older parameter surface can fail outright on a newer model, and advice about "lowering the temperature for reliability" no longer applies where the parameter is gone. Check the parameter surface of the specific model, not the vendor.
+
+## The levers that change the bill
+
+Most teams try to cut costs by switching to a cheaper model. That is usually the *last* lever to pull, and it is the only one that trades away quality. Three cheaper levers come first.
+
+### Prompt caching
+
+<Term slug="prompt-caching">Prompt caching</Term> lets a provider reuse the processing of a stable prefix across requests. The economics are steep enough to reshape architecture. On one current provider's published rates: a cache write costs 1.25× the base input price for a five-minute cache or 2× for an hour, and a **cache read costs 0.1× the base input price**. So a five-minute cache pays for itself after a single hit, and an hour cache after two.
+
+Caching is a **prefix match**, and that word does the work. Any byte change anywhere in the prefix invalidates everything after it. The classic silent invalidator is a timestamp in the system prompt: nothing errors, behaviour is unchanged, and the bill quietly reverts to full price.
+
+<ForEngineers>
+Order the request so stability decreases left to right. Rendering order is tools, then system, then messages — so a frozen system prompt and a deterministically ordered tool list come first, and anything volatile (per-request ids, timestamps, the current question) goes after the last cache breakpoint.
+
+Verify rather than assume. `usage.cache_read_input_tokens` tells you whether caching is actually happening. If it is zero across repeated requests with what you believe is a shared prefix, hunt the invalidator — non-deterministic JSON key ordering and a dynamically-built tool list are the two most common culprits after timestamps.
+
+Two things that surprise people:
+
+- **Caching is model-scoped.** A cascade that routes across three models maintains three separate cache namespaces and forfeits reuse between them. That cost is easy to miss when comparing a cascade against a single model.
+- **Cached tokens still occupy the window.** Caching changes the price of a prefix, never its size. It is not a capacity strategy.
+</ForEngineers>
+
+### Batching
+
+For anything not latency-sensitive — evaluation runs, bulk classification, nightly enrichment — a batch API commonly gives 50% off both input and output, and stacks with caching. This is free money that teams routinely leave on the table because the work was originally written as synchronous requests and nobody revisited it.
+
+### Effort and thinking
+
+Newer models expose an <Term slug="effort">effort</Term> control that trades thoroughness against token spend *within a single model*. This is often the better first move than switching models: lower effort on a strong current model frequently matches or beats a previous-generation model at high effort, and it keeps you in one cache namespace.
+
+## Model mixing
+
+<Term slug="model-mixing">Model mixing</Term> — routing different work to different models — is where the real savings usually live, and also where the most self-inflicted complexity comes from.
+
+The pattern that works: **route by task shape, not by a quality score.** Extraction, classification, and summarisation to a small fast model. Planning, ambiguous debugging, and anything where being wrong is expensive to a flagship. Bulk work to a batch endpoint overnight.
+
+The pattern that disappoints: **a cascade that retries on a bigger model when the small one "fails".** It sounds efficient and frequently is not. You pay for both attempts, you need a reliable failure signal that usually does not exist, you lose cache reuse across models, and the latency is the sum rather than the minimum. Measure it against simply using the better model at lower effort before you build it.
+
+<ForLeads>
+**Judge cost per completed task, not per request.** A model at a third of the price that needs two attempts, more tool calls, or a human correction is not cheaper. This single reframing overturns most naive cost comparisons, and it is the number to ask for when someone proposes a downgrade.
+
+**Portability is an architectural property, not a vendor promise.** If your harness owns context assembly, tool definitions, and evaluation, the model is a configuration value and switching is a day of work. If your prompts encode one vendor's quirks and your workflows are built on their proprietary agent framework, switching is a rewrite. That difference is decided early and cheaply, and is expensive to reverse.
+
+**Do not standardise on one model organisation-wide.** It optimises for procurement convenience against engineering outcomes. Standardise on the *harness* and on the evaluation set; let each workload pick its model.
+
+**Re-verify pricing quarterly.** In 2026, per-token prices moved, long-context surcharges were removed by some providers and kept by others, and at least one vendor's introductory rate became permanent. A cost model built once and never revisited will be wrong within two quarters — usually in your favour, which is its own kind of waste.
+</ForLeads>
+
+<Callout tone="danger" title="Don't hard-code a model id in more than one place">
+When a model is retired or superseded — which happens on the order of months — a codebase with model strings scattered through it turns a config change into an archaeology exercise. One constant, one place, read from configuration. This is trivial to do on day one and genuinely painful to retrofit.
+</Callout>
+
+<Aside>
+Watch for cost multipliers that are not the headline price: regional or data-residency routing commonly adds around 10%; premium fast tiers can double the rate; server-side tools bill separately from tokens — web search at a per-search rate, code execution by container-hour. A cost model built only from input and output rates can be materially wrong for a tool-heavy agent.
+</Aside>
+
+<SelfCheck
+  question="Your bill doubled but request volume did not. What do you check first?"
+  hint="Look for what changed in the prefix, not in the volume."
+  answer="Cache hit rate. A silent invalidator — a timestamp in the system prompt, a reordered tool list, non-deterministic JSON key order — turns every request from a cache read at a tenth of the input price into a full-price read. Nothing errors and behaviour is unchanged, which is exactly why it goes unnoticed."
+/>
+
+<Lab
+  title="Build a real cost model for one workload"
+  goal="Replace a headline per-token price with a measured cost per completed task for something you actually run."
+  minutes={25}
+  successLooksLike="You can state the cost of one completed task in dollars, broken into uncached input, cached input, and output — and you have identified at least one lever that would reduce it."
+>
+  <ol>
+    <li>Pick one real workload. Capture the <code>usage</code> object from ten actual requests.</li>
+    <li>Sum uncached input, cache reads, cache writes, and output tokens separately. Compute the blended cost using your provider's current published rates.</li>
+    <li>Divide by the number of tasks that actually <em>completed</em> — not requests made. Count retries and corrections against the total.</li>
+    <li>Check your cache read tokens. If they are zero, find the invalidator before doing anything else.</li>
+    <li>Now estimate the same workload with the three levers in order: caching fixed, batch where latency allows, lower effort. Compare that against switching to a cheaper model.</li>
+  </ol>
+</Lab>
+
+The framework outlasts the numbers. Compare on the axes that match your workload, pull the free levers before the ones that trade quality, and keep the model a configuration value so that next quarter's release is an upgrade rather than a migration.

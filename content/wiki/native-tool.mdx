@@ -1,0 +1,19 @@
+---
+term: Native tool
+slug: native-tool
+aliases: [Server-side tool]
+summary: "A capability the model vendor runs on their own infrastructure — web search, web fetch, code execution — rather than one you execute."
+category: Tools
+relatedTerms: [Function calling, Tool result]
+lessons: [w1.m01.b05]
+sources:
+  - url: https://platform.claude.com/docs/en/about-claude/pricing
+    title: Pricing
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+---
+
+You declare it and results arrive in the same response, with no execution loop to write and no infrastructure to run. In exchange you give up control over what is fetched or executed, and take a dependency on the provider's implementation.
+
+Pricing works differently: native tools commonly bill **outside** the token model — a per-search charge, or container-hours for code execution. A cost model built only from input and output rates can be materially wrong for a tool-heavy agent.

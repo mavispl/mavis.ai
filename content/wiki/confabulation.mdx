@@ -1,0 +1,22 @@
+---
+term: Confabulation
+slug: confabulation
+aliases: [Hallucination]
+summary: "Fluent, confident production of false detail with no awareness that a gap is being filled. The confidence carries no information about accuracy."
+analogy: "Not seeing something that is not there — sincerely filling in a missing memory and believing the result."
+category: Limits
+relatedTerms: [Base knowledge, Knowledge cutoff]
+lessons: [w1.m01.b03]
+sources:
+  - url: https://arxiv.org/abs/2509.04664
+    title: Why Language Models Hallucinate
+    publisher: Kalai et al., arXiv
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+---
+
+"Confabulation" is the more accurate word. A hallucination is a false perception; confabulation is the sincere generation of plausible detail to fill a gap. That is precisely what next-token prediction does when no continuation is strongly supported.
+
+It is not a mysterious flaw but a predictable consequence of training **and evaluation**. Most benchmarks score binary — one point for correct, zero for wrong, zero for "I don't know" — under which guessing strictly dominates abstaining. We selected for confident guessing.
+
+Which is why prompt-level pleading ("be accurate") achieves so little. The fixes are structural: supply the information, make claims checkable, or provide a tool that can verify.

@@ -1,0 +1,149 @@
+{
+  "module": "w1.m01",
+  "moduleTitle": "Mechanics Behind Generative AI",
+  "gatheredAt": "2026-09-04T09:10:00Z",
+  "method": "WebSearch + WebFetch; every URL below was opened during this run",
+  "notes": [
+    "Anthropic's own docs are used as a primary source for concrete numbers, and are labelled as vendor documentation rather than neutral fact. Cross-vendor comparison pages carry the comparison claims.",
+    "The tokenizer-change note on the Anthropic pricing page is unusually valuable: it is a vendor stating on the record that the same text produces ~30% more tokens after a tokenizer change. It makes the 'a token is not a stable unit' point concrete without hand-waving."
+  ],
+  "lessons": {
+    "w1.m01.b01": [
+      {
+        "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview",
+        "title": "Tool use overview",
+        "publisher": "Anthropic",
+        "accessedOn": "2026-09-04",
+        "claim": "A model emits a structured tool-call request; the surrounding program executes it and returns a result into context.",
+        "confidence": "primary"
+      },
+      {
+        "url": "https://platform.claude.com/docs/en/about-claude/pricing",
+        "title": "Pricing",
+        "publisher": "Anthropic",
+        "accessedOn": "2026-09-04",
+        "claim": "Declaring tools adds a measurable, documented number of input tokens to every request (286-675 depending on model).",
+        "confidence": "primary",
+        "notes": "Concrete evidence that the harness has a token cost, not just a conceptual one."
+      }
+    ],
+    "w1.m01.b02": [
+      {
+        "url": "https://arxiv.org/abs/1706.03762",
+        "title": "Attention Is All You Need",
+        "publisher": "Vaswani et al., arXiv",
+        "accessedOn": "2026-09-04",
+        "claim": "The Transformer dispenses with recurrence and convolution, relying entirely on attention to relate positions in a sequence.",
+        "confidence": "primary"
+      },
+      {
+        "url": "https://arxiv.org/abs/2508.04796",
+        "title": "Parity-Aware Byte-Pair Encoding: Improving Cross-lingual Fairness in Tokenization",
+        "publisher": "Foroutan et al., arXiv",
+        "accessedOn": "2026-09-04",
+        "claim": "Per-language token cost is unequal under classical BPE; the paper reduces the Gini coefficient of per-language cost by up to 89%.",
+        "confidence": "primary",
+        "notes": "Submitted 2025-08-06, last revised 2026-07-02. Establishes that billing per token transfers tokenizer bias onto users as unequal cost and latency."
+      },
+      {
+        "url": "https://platform.claude.com/docs/en/about-claude/pricing",
+        "title": "Pricing — tokenizer note",
+        "publisher": "Anthropic",
+        "accessedOn": "2026-09-04",
+        "claim": "Claude 4.7 and later use a newer tokenizer that produces approximately 30% more tokens for the same text than earlier models.",
+        "confidence": "primary",
+        "notes": "A vendor on the record that token counts are not comparable across model generations."
+      }
+    ],
+    "w1.m01.b03": [
+      {
+        "url": "https://arxiv.org/abs/2509.04664",
+        "title": "Why Language Models Hallucinate",
+        "publisher": "Kalai, Nachum, Vempala, Zhang — OpenAI and Georgia Tech, arXiv",
+        "accessedOn": "2026-09-04",
+        "claim": "Hallucination is a predictable statistical consequence of training and evaluation that reward guessing over abstention; binary scoring makes a guess strictly better than 'I don't know'.",
+        "confidence": "primary"
+      },
+      {
+        "url": "https://www.nature.com/articles/s41586-026-10549-w",
+        "title": "Evaluating large language models for accuracy incentivizes hallucinations",
+        "publisher": "Nature",
+        "accessedOn": "2026-09-04",
+        "claim": "Accuracy-only evaluation creates an incentive structure that produces confident false answers.",
+        "confidence": "primary",
+        "notes": "Peer-reviewed treatment of the same result; cite alongside the arXiv preprint."
+      },
+      {
+        "url": "https://platform.claude.com/docs/en/build-with-claude/context-windows",
+        "title": "Context windows",
+        "publisher": "Anthropic",
+        "accessedOn": "2026-09-04",
+        "claim": "Everything in a request counts toward the window — system prompt, messages, tool results, images, tool definitions, and generated output including thinking. Accuracy and recall degrade as the window fills ('context rot'). Input over the limit returns a 400; generation that reaches it stops with model_context_window_exceeded.",
+        "confidence": "primary"
+      }
+    ],
+    "w1.m01.b04": [
+      {
+        "url": "https://platform.claude.com/docs/en/about-claude/pricing",
+        "title": "Pricing",
+        "publisher": "Anthropic",
+        "accessedOn": "2026-09-04",
+        "claim": "Per-model input/output rates, cache read at 0.1x base input, cache write at 1.25x (5m) or 2x (1h), Batch API at 50% off, 1M context at standard pricing on 4.6+.",
+        "confidence": "primary"
+      },
+      {
+        "url": "https://www.cloudzero.com/blog/llm-api-pricing-comparison/",
+        "title": "LLM API pricing comparison in 2026",
+        "publisher": "CloudZero",
+        "accessedOn": "2026-09-04",
+        "claim": "Cross-vendor flagship rates as of 2026: GPT-5.6 Sol $5/$30 at 1.05M context; Claude Opus 5 $5/$25 at 1M; Gemini 3.1 Pro $2/$12 at 1M with a higher tier above 200K input.",
+        "confidence": "secondary",
+        "notes": "Aggregator. Cross-checked against Anthropic's own page for the Claude column; treat the other columns as indicative and re-verify before quoting."
+      },
+      {
+        "url": "https://www.morphllm.com/llm-context-window-comparison",
+        "title": "LLM Context Window Comparison (2026)",
+        "publisher": "Morph",
+        "accessedOn": "2026-09-04",
+        "claim": "Context windows across ~20 models range from 200K to 10M as of 2026.",
+        "confidence": "secondary"
+      }
+    ],
+    "w1.m01.b05": [
+      {
+        "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview",
+        "title": "Tool use overview",
+        "publisher": "Anthropic",
+        "accessedOn": "2026-09-04",
+        "claim": "Tool definitions, tool_use blocks and tool_result blocks are all ordinary context; parallel tool calls return in a single user message.",
+        "confidence": "primary"
+      },
+      {
+        "url": "https://platform.claude.com/docs/en/about-claude/pricing",
+        "title": "Pricing — tool use pricing",
+        "publisher": "Anthropic",
+        "accessedOn": "2026-09-04",
+        "claim": "Server-side tools carry usage pricing beyond tokens: web search $10 per 1,000 searches; web fetch no additional cost; code execution 1,550 free container-hours per org per month then $0.05/hour.",
+        "confidence": "primary"
+      }
+    ],
+    "w1.m01.b06": [
+      {
+        "url": "https://arxiv.org/abs/1706.03762",
+        "title": "Attention Is All You Need",
+        "publisher": "Vaswani et al., arXiv",
+        "accessedOn": "2026-09-04",
+        "claim": "Attention computes a weighted combination over all positions, which is the mechanism behind association-driven behaviour.",
+        "confidence": "primary"
+      },
+      {
+        "url": "https://platform.claude.com/docs/en/build-with-claude/context-windows",
+        "title": "Context windows — context rot",
+        "publisher": "Anthropic",
+        "accessedOn": "2026-09-04",
+        "claim": "More context is not automatically better; accuracy and recall degrade as token count grows, so curating context matters as much as capacity.",
+        "confidence": "primary"
+      }
+    ]
+  }
+}

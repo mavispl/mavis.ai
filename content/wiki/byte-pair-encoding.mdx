@@ -1,0 +1,19 @@
+---
+term: Byte-pair encoding
+slug: byte-pair-encoding
+aliases: [BPE]
+summary: "The algorithm behind most tokenizers: repeatedly merge the most frequent adjacent byte pair into a new vocabulary entry until the vocabulary is full."
+category: Mechanics
+relatedTerms: [Token, Generalization]
+lessons: [w1.m01.b02]
+sources:
+  - url: https://arxiv.org/abs/2508.04796
+    title: Parity-Aware Byte-Pair Encoding
+    publisher: Foroutan et al., arXiv
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+---
+
+The merge table is learned once over the training corpus and frozen. It never adapts to your input, which is why unusual text — minified code, base64, rare identifiers — fragments into many short tokens.
+
+Because training corpora are predominantly English, English compresses into fewer, longer tokens than other scripts. Since providers bill per token and latency scales with token count, that inequality is passed to users as unequal cost purely by language choice — the motivation for work on parity-aware tokenization, which reports reducing the Gini coefficient of per-language cost by up to 89% relative to classical BPE.

@@ -1,0 +1,13 @@
+---
+term: Model routing
+slug: model-routing
+summary: "Sending each request to a model chosen by task shape rather than standardising on one model everywhere."
+category: Cost
+relatedTerms: [Model mixing, Effort]
+lessons: [w1.m01.b04]
+verifiedOn: 2026-09-04
+---
+
+Routing works when the rule is about the *shape* of the task — extraction and classification to a small fast model, planning and ambiguous debugging to a flagship, bulk work to a batch endpoint.
+
+Routing disappoints when the rule is a quality cascade that retries on a bigger model. You pay for both attempts, you need a failure signal that usually does not exist, latency is the sum rather than the minimum, and you lose cache reuse across models.

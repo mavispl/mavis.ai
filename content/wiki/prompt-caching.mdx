@@ -1,0 +1,21 @@
+---
+term: Prompt caching
+slug: prompt-caching
+summary: "Reusing the processing of a stable prompt prefix across requests. Typically a cache read costs about a tenth of the base input price."
+analogy: "Leaving the book open at the right page instead of finding it again each time."
+category: Cost
+relatedTerms: [Context window, Model mixing]
+lessons: [w1.m01.b04]
+sources:
+  - url: https://platform.claude.com/docs/en/about-claude/pricing
+    title: Pricing
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+---
+
+Caching is a **prefix match**: any byte change anywhere in the prefix invalidates everything after it. That is why a timestamp in a system prompt silently reverts every request to full price — nothing errors and behaviour is unchanged.
+
+Order requests so stability decreases left to right: frozen system prompt and deterministically ordered tools first, volatile content last. Verify with the cache-read token count rather than assuming; zero across repeated requests means an invalidator is at work.
+
+Caches are **model-scoped**, so a multi-model cascade forfeits reuse between its models.
