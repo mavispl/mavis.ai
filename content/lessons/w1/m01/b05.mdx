@@ -1,0 +1,179 @@
+---
+id: w1.m01.b05
+title: "Text, structured output, and function calling"
+week: 1
+weekTitle: Core
+module: 1
+moduleTitle: Mechanics Behind Generative AI
+bullet: 5
+summary: There are four ways to get something out of a model — prose, a schema-constrained object, a tool call you execute, and a tool the provider runs. Picking the wrong one is the most common source of brittle AI code.
+personas: [junior, mid, senior, lead, cto]
+prerequisites: [w1.m01.b04, w1.m01.b01]
+related: [w1.m02.b05, w1.m01.b03]
+tags: [structured-outputs, function-calling, tools, integration]
+defines: [Structured output, Function calling, Native tool, Tool result, Schema]
+sources:
+  - url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview
+    title: Tool use overview
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+  - url: https://platform.claude.com/docs/en/about-claude/pricing
+    title: Pricing — tool use and server tool pricing
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+volatility: medium
+estMinutes: 15
+crashCourse: 5
+checks:
+  - q: Why is asking for JSON in the prompt and parsing the reply different from using structured outputs?
+    a: A prompt is a request the model usually honours; structured outputs constrain generation so the result validates against your schema. The first fails intermittently — a stray preamble, a trailing comma, a fenced code block — and those failures cluster on unusual inputs, which is exactly where you least want them.
+    hint: Ask what enforces the shape.
+  - q: A model "called a tool" but nothing ran and no error was raised. What happened?
+    a: It described the call in visible text rather than emitting a structured tool_use block. The turn succeeded, the harness saw no call to execute, and the prose is now in the conversation where it can mislead later turns. Check stop_reason, and look for a tool_use block rather than trusting the text.
+  - q: When should a tool be a single broad tool rather than several narrow ones?
+    a: When the model can be trusted to compose the operation and the alternative would be dozens of near-identical definitions burning input tokens on every request. Narrow tools are safer and clearer; broad tools are cheaper in context and more flexible. The tradeoff is authority against token cost.
+---
+
+A model produces tokens. Everything else — a validated object, a database query, a file written to disk — is a matter of how you constrain and interpret those tokens. There are four distinct mechanisms, and most brittle AI integrations come from reaching for the wrong one.
+
+<Plainly>
+Four ways to get something usable out of a model:
+
+1. **Ask it to write something**, and read the prose.
+2. **Ask it to fill in a form** whose shape you defined, and get back a validated object.
+3. **Give it a list of buttons it may press**, and when it presses one, your code runs.
+4. **Let the provider give it buttons** that they run on their own machines.
+
+They look similar from outside and behave very differently when things go wrong. The difference between a demo and a system is usually just picking the right one.
+</Plainly>
+
+## 1. Text generation
+
+The default. Useful when a human is the consumer, and dangerous the moment a program is.
+
+The trap is not that free text is bad — it is that free text *usually* parses. You write a regex against the response, it works on twenty examples, you ship. Then the model prefixes its answer with "Certainly! Here's the JSON you requested:" on one input in fifty, and your parser fails. The failures are rare enough to survive review and frequent enough to matter in production, and they cluster on unusual inputs — exactly where you least want them.
+
+**If a program consumes the output, do not use free text.** Use the next mechanism.
+
+## 2. Structured outputs
+
+<Term slug="structured-output">Structured outputs</Term> constrain generation against a schema you supply, so the response is a valid instance rather than something that resembles one. The distinction is enforcement: a prompt asking for JSON is a request; a schema constraint is a guarantee about shape.
+
+This is the right choice for extraction, classification, and any handoff into typed code. The design mistakes are consistent:
+
+- **Schemas that are too permissive.** `{"result": "string"}` gives you a validated blob with no structure. Push the actual shape into the schema — enums for closed sets, arrays for repeats, nested objects for relationships.
+- **Fields with no way to say "absent".** If the source document does not contain a date, the model must produce *something* for a required `date` field. It will produce a plausible one. Make it optional, or include an explicit `not_found` variant, and you convert an invented value into a correct one.
+
+<Callout tone="key">
+Schema design is where you decide how the model fails. A permissive schema fails as bad data flowing silently into your system; a precise schema with explicit absence variants fails as a value that says "I did not find this". You get to choose which.
+</Callout>
+
+## 3. Function calling
+
+<Term slug="function-calling">Function calling</Term> inverts the flow. Instead of the model producing an answer, it produces a *request* — a structured block naming a tool and its arguments. Your harness executes it and returns the result as a <Term slug="tool-result">tool result</Term>, and the model continues with that in context.
+
+The mechanics were covered in the first lesson. What matters here is design.
+
+**The description is a prompt, not documentation.** It is the only thing telling the model when to reach for this tool. Written like API reference — "Queries the user table" — it gets used at the wrong times or not at all. Written like instruction — "Look up a user's subscription status by email. Use this before answering any billing question. Returns null if no account exists." — it gets used correctly. The most common cause of "the agent ignored the tool" is a description written for a human reader.
+
+**Granularity is a real tradeoff.** Narrow tools (`get_user_email`, `get_user_plan`, `get_user_created_at`) are safe and unambiguous, and they burn input tokens on every request forever. One broad tool (`query_users`) is cheap in context and hands the model more authority than you may want. Both are defensible; drifting into forty narrow tools without deciding is not.
+
+**Results are context, so their size is a cost.** A tool returning 4,000 lines of JSON has technically succeeded and practically failed: it consumed the window and left the model searching. Return what is needed, paginate, and prefer a summary with a follow-up tool over a dump.
+
+<ForEngineers>
+Details that separate working integrations from flaky ones:
+
+**Parallel calls.** One assistant message can carry several `tool_use` blocks. Execute them concurrently and return **all** `tool_result` blocks in a *single* user message. Splitting them across messages teaches the model, within that conversation, to stop batching — and you lose the concurrency for the rest of the session.
+
+**Errors are results.** A failed tool returns a `tool_result` with `is_error: true` and a message the model can act on. Dropping the block leaves an unresolved call and usually triggers a retry loop. A useful error message ("file not found: src/idnex.ts — did you mean src/index.ts?") often recovers in one turn where a stack trace does not.
+
+**Strict schemas.** Where available, a strict mode guarantees arguments validate exactly — worth enabling for any tool with side effects, so you are validating at the boundary rather than defensively inside the handler.
+
+**Silent non-calls.** If the model writes the *description* of a call as prose instead of emitting a block, the turn succeeds, nothing runs, and no error surfaces. In an agentic loop that prose then pollutes later turns. Always branch on `stop_reason` and look for an actual `tool_use` block rather than trusting the text.
+</ForEngineers>
+
+## 4. Native (server-side) tools
+
+Some capabilities are provided by the model vendor and run on their infrastructure: web search, web fetch, code execution. You declare them; results arrive in the same response without a round trip to your code.
+
+It is worth separating three things people collapse into "tools". **Custom tools** are functions you write and execute. **External tools** are third-party systems reached over a protocol — a database, a ticketing system, an MCP server — which are still executed by your harness, but whose behaviour and availability you do not control. **Native tools** are executed by the provider. The security question differs for each: for custom tools you audit your own code, for external tools you are extending trust to another system's output, and for native tools you are extending it to the provider.
+
+The tradeoffs are real and go both ways. You get no execution loop to write and no infrastructure to run. You also give up control over what is fetched and executed, and you take on a dependency on the provider's implementation. And the pricing model is different: <Term slug="native-tool">native tools</Term> commonly bill *outside* the token model — a per-search charge, or container-hours for code execution — which means a cost model built only from input and output rates can be materially wrong for a tool-heavy agent.
+
+<Diagram
+  caption="Where execution happens, and what that determines. The dashed line is your trust and cost boundary."
+  alt="Two columns side by side. The left column, labelled your infrastructure, contains Harness and Custom tools, with a note that you control execution, credentials and audit. The right column, labelled provider infrastructure, contains Model and Native tools, with a note that the provider controls execution and bills separately from tokens. A dashed vertical line separates them, labelled trust and cost boundary. Arrows cross the line in both directions between Harness and Model."
+>
+  <svg viewBox="0 0 580 210" width="100%" height="210" role="img" aria-hidden="true">
+    <line x1="290" y1="14" x2="290" y2="196" stroke="var(--accent)" strokeWidth="1.25" strokeDasharray="5 4" />
+    <text x="290" y="206" textAnchor="middle" fontSize="11" fill="var(--accent)" fontWeight="600">trust and cost boundary</text>
+
+    <text x="30" y="26" fontSize="11" fill="var(--text-muted)" fontWeight="600">YOUR INFRASTRUCTURE</text>
+    <text x="330" y="26" fontSize="11" fill="var(--text-muted)" fontWeight="600">PROVIDER INFRASTRUCTURE</text>
+
+    <rect x="30" y="42" width="150" height="52" rx="10" fill="var(--surface-sunken)" stroke="var(--border-strong)" strokeWidth="1.25" />
+    <text x="105" y="73" textAnchor="middle" fontSize="13" fontWeight="600" fill="var(--text)">Harness</text>
+
+    <rect x="30" y="112" width="150" height="52" rx="10" fill="var(--surface-sunken)" stroke="var(--border-strong)" strokeWidth="1.25" />
+    <text x="105" y="136" textAnchor="middle" fontSize="13" fontWeight="600" fill="var(--text)">Custom tools</text>
+    <text x="105" y="152" textAnchor="middle" fontSize="10.5" fill="var(--text-muted)">your credentials</text>
+
+    <rect x="360" y="42" width="150" height="52" rx="10" fill="var(--surface-sunken)" stroke="var(--border-strong)" strokeWidth="1.25" />
+    <text x="435" y="73" textAnchor="middle" fontSize="13" fontWeight="600" fill="var(--text)">Model</text>
+
+    <rect x="360" y="112" width="150" height="52" rx="10" fill="var(--surface-sunken)" stroke="var(--border-strong)" strokeWidth="1.25" />
+    <text x="435" y="136" textAnchor="middle" fontSize="13" fontWeight="600" fill="var(--text)">Native tools</text>
+    <text x="435" y="152" textAnchor="middle" fontSize="10.5" fill="var(--text-muted)">billed separately</text>
+
+    <path d="M182 58 L356 58" fill="none" stroke="var(--primary)" strokeWidth="1.5" markerEnd="url(#arrow-accent)" />
+    <path d="M356 84 L182 84" fill="none" stroke="var(--primary)" strokeWidth="1.5" markerEnd="url(#arrow-accent)" />
+    <path d="M105 96 L105 108" fill="none" stroke="var(--border-strong)" strokeWidth="1.25" markerEnd="url(#arrow)" />
+    <path d="M435 96 L435 108" fill="none" stroke="var(--border-strong)" strokeWidth="1.25" markerEnd="url(#arrow)" />
+    <ArrowDefs />
+  </svg>
+</Diagram>
+
+## Choosing
+
+| If the consumer is… | Use | Because |
+|---|---|---|
+| a human reading it | text generation | shape does not need enforcing |
+| a program, one shot | structured outputs | the schema is the contract |
+| a program, needing real data or effects | function calling | the model requests, you execute and stay in control |
+| a program, and the capability is generic | native tools | no infrastructure, at the price of control |
+
+<ForLeads>
+**Free text into a program is technical debt with a variable interest rate.** It works in the demo, passes review, and fails on a fraction of production inputs — reported as flakiness rather than as a design error. When someone says the AI feature is "mostly reliable", this is very often the cause, and it is cheap to fix early and annoying to fix late.
+
+**Tool authority is the security surface.** The model has no permissions of its own; every tool you expose is a grant. The review question for any new tool is not "does it work" but "what can this do if the model is persuaded by something it read". That is a normal permissions review, not a novel discipline.
+
+**Native tools trade control for speed of delivery.** Fine for generic capability, worth thinking twice about where the fetched content or executed code sits inside your trust boundary — and worth modelling separately in the budget, since they do not bill like tokens.
+</ForLeads>
+
+<Callout tone="danger" title="Don't let a tool result reach an interpreter unvalidated">
+Tool results are untrusted input with no privilege marker in the context window. A web page, an issue comment, or a dependency's README fetched by a tool sits alongside your instructions. If that path leads to a shell, an <code>eval</code>, a SQL string, or a template renderer, embedded instructions execute with your process's authority. Parse into a typed structure, allowlist operations, sandbox anything untrusted.
+</Callout>
+
+<SelfCheck
+  question="Why is asking for JSON in the prompt and parsing the reply different from using structured outputs?"
+  hint="Ask what enforces the shape."
+  answer="A prompt is a request the model usually honours; structured outputs constrain generation so the result validates against your schema. The prompt version fails intermittently — a preamble, a trailing comma, a fenced code block — and those failures cluster on unusual inputs, which is exactly where you least want them."
+/>
+
+<Lab
+  title="Convert one fragile parse into a schema"
+  goal="Take a place where you parse free-form model output and replace it with an enforced schema, then observe the difference on inputs designed to break it."
+  minutes={20}
+  successLooksLike="The same adversarial inputs that produced a parse failure or a silently wrong value now produce either a valid object or an explicit 'not found' — never a plausible invention."
+>
+  <ol>
+    <li>Find a prompt in your codebase that asks for JSON, a list, or a specific format, and is parsed by code.</li>
+    <li>Write down what happens today when the model adds a preamble, wraps the output in a code fence, or omits a field.</li>
+    <li>Define a schema for the real shape. Use enums for closed sets. Make genuinely optional fields optional, and add an explicit absence variant where a value may not exist in the source.</li>
+    <li>Switch to structured outputs against that schema.</li>
+    <li>Test with input that lacks the information entirely. The old version invents a value; the new one should tell you it is not there.</li>
+  </ol>
+</Lab>
+
+These four mechanisms are the whole interface. Everything in the rest of the course — skills, subagents, multi-agent systems, autonomous pipelines — is built by composing them, and every one of those compositions inherits the failure modes of the mechanism underneath.

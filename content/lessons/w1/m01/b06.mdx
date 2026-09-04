@@ -1,0 +1,136 @@
+---
+id: w1.m01.b06
+title: "Steering a model: generalization, association, and latent space"
+week: 1
+weekTitle: Core
+module: 1
+moduleTitle: Mechanics Behind Generative AI
+bullet: 6
+summary: You cannot instruct a model the way you configure a program. You steer it — by putting things in the context that shift which associations dominate the next prediction.
+personas: [mid, senior, lead, cto]
+prerequisites: [w1.m01.b05, w1.m01.b01]
+related: [w1.m01.b02, w1.m02.b02]
+tags: [steering, latent-space, reasoning, generalization]
+defines: [Latent space, Generalization, Self-querying, Reasoning tokens]
+sources:
+  - url: https://arxiv.org/abs/1706.03762
+    title: Attention Is All You Need
+    publisher: Vaswani et al., arXiv
+    accessedOn: 2026-09-04
+  - url: https://platform.claude.com/docs/en/build-with-claude/context-windows
+    title: Context windows — context rot
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+volatility: low
+estMinutes: 15
+checks:
+  - q: Why does showing two examples usually beat a paragraph describing what you want?
+    a: Examples land in the context as the thing itself, not as a description of it. They shift the distribution directly — the model's next tokens are conditioned on text that already has the properties you want. A description has to be interpreted first, and interpretation is where drift enters.
+    hint: Ask what the model is conditioning on in each case.
+  - q: What is the mechanical explanation for reasoning-before-answering improving accuracy?
+    a: Each token is predicted given everything before it. Reasoning tokens put intermediate results into the sequence, so the final answer conditions on them rather than having to be produced in one step. It is extra conditioning material, not extra deliberation.
+  - q: You ask a model to critique its own answer and it agrees with itself. Why is that the expected result?
+    a: The original answer is in the context, so it dominates the distribution — the most likely continuation of a confident answer plus "is this right?" is agreement. Genuine self-critique needs the claim evaluated without its original framing present, or against an external check.
+---
+
+You cannot configure a model. There is no flag that makes it more careful, no setting for "be accurate". What you have is the context, and everything you put there shifts which patterns dominate the next prediction. That is steering, and it behaves less like programming than like arranging the conditions under which a particular kind of output becomes the most likely one.
+
+<Plainly>
+Think about how a conversation's tone establishes itself. If the first few exchanges are formal, the rest tends to stay formal — not because anyone decided, but because each remark is shaped by what came before.
+
+A model works the same way, more strongly. Everything in the context sets the conditions for what comes next. You are not giving orders so much as setting up a situation where the answer you want is the natural continuation.
+</Plainly>
+
+## Generalization and association
+
+<Term slug="generalization">Generalization</Term> is what makes the whole thing work: the model handles inputs it never saw in training because it learned patterns rather than memorising examples. It is also the source of the behaviour people find slippery, because the pattern it generalises from is not always the one you had in mind.
+
+The operative unit is **association**. Tokens in the context activate patterns; those patterns shape the distribution. This produces effects that look like personality and are really statistics:
+
+- Ask in the vocabulary of a domain and you get the conventions, assumptions, and blind spots of that domain along with it.
+- Ask a question phrased as though a particular answer is expected, and that answer becomes more likely — regardless of whether it is correct.
+- Include an example of sloppy work and subsequent output drifts toward sloppy, because "text that follows sloppy text" is what is being predicted.
+
+That last one is worth stating plainly: **everything in your context is an example of what to produce next**, including things you put there for other reasons. A verbose, unfocused system prompt does not just cost tokens; it demonstrates verbose, unfocused writing.
+
+## Latent space
+
+<Term slug="latent-space">Latent space</Term> is the geometric picture. Tokens become high-dimensional vectors, and the model operates on those vectors rather than on words. Related concepts sit near each other; the layers move representations around in ways that encode meaning and relationship.
+
+It is a genuinely useful intuition for one thing: **steering is movement, not selection.** You are not picking from a menu of behaviours; you are nudging a starting position in a space, and nearby positions produce related-but-different output. This explains why small phrasing changes sometimes produce large output changes (you crossed a boundary) and why large rewrites sometimes change nothing (you moved within the same region).
+
+<Callout tone="note" title="On the term J-space">
+This lesson's agenda item includes "J-space". That is not established terminology in the published literature, and no standard definition exists for it as of the verification date on this page — it appears to be shorthand from a particular teaching tradition rather than a term you will find in papers. Where you encounter it, ask what is meant; usually it is a specific take on latent-space geometry. We flag it rather than inventing a definition, because a confident-sounding gloss on a non-standard term is precisely the failure this course spends a lesson warning about.
+</Callout>
+
+<ForEngineers>
+Some precision, since "latent space" invites over-interpretation.
+
+There is no single latent space. There is a residual stream carrying a representation per position, read and written by every layer, plus attention operating over key and value projections at each layer. The representation at layer 3 and at layer 40 are different spaces with different structure. "The model's latent space" is a convenient fiction covering a stack of them.
+
+Directions in these spaces are often interpretable — interpretability research finds features corresponding to recognisable concepts, and steering vectors that shift behaviour when added to activations. That is a real technique, and it is not available to you through the API. Through the API you have exactly one lever: **what tokens are in the context, and in what order**. Everything called prompt engineering is that lever.
+
+Which reframes prompting usefully. You are choosing an initial condition for a deterministic-given-seed process. The reason phrasing matters is not that the model is picky — it is that different phrasings genuinely start the computation in different places. And the reason position matters is that attention weights positions unevenly, so the *same* tokens in a different order are a different starting condition.
+</ForEngineers>
+
+## Reasoning tokens
+
+Asking a model to work through a problem before answering measurably improves accuracy on multi-step tasks. The mechanical explanation is unglamorous and worth having.
+
+Each token is predicted given everything before it. In a single-step answer, the model must produce the correct token immediately, with only the question to condition on. When intermediate reasoning is generated first, those <Term slug="reasoning-tokens">reasoning tokens</Term> are *in the sequence* — so the final answer is conditioned on partial results rather than having to leap.
+
+It is extra conditioning material, not extra deliberation. Two things follow that matter in practice:
+
+**Reasoning can be wrong and still sound sound.** The reasoning is generated by the same predictive process as everything else. It is not a trace of a separate computation that produced the answer; it is text that the answer then conditions on. Plausible reasoning to a wrong conclusion is a perfectly ordinary output.
+
+**Reasoning tokens cost.** They are billed as output and they occupy the window. On tasks that do not need decomposition, reasoning is pure expense. Modern APIs expose this as a dial precisely because the right setting is task-dependent.
+
+## Self-querying and its limits
+
+<Term slug="self-querying">Self-querying</Term> — asking a model to review, critique, or verify its own output — sometimes helps and often does not, and the difference is predictable.
+
+**It helps** when the review is a genuinely different task on material now in context: "here is a function, list its edge cases" is a different prediction problem from "write this function", and the second pass can surface things the first missed.
+
+**It does not help** when the original answer is present with its original framing. The answer is in the context, so it dominates the distribution — the likeliest continuation of a confident answer plus "is that right?" is agreement. You are not getting a second opinion; you are getting a continuation of the first.
+
+The design implication: for real verification, either strip the original framing (evaluate the claim, not "your answer"), or give the model an external check — a test suite, a source document, a tool that can disagree with it. **Verification needs an outside source of truth, or it collapses into a longer version of the original answer.**
+
+<ForLeads>
+**Prompting is a skill with a ceiling, and context engineering is what lies above it.** Teams plateau by treating prompt wording as the lever. The larger gains come from what is in the context at all — the right files, the right examples, the right tools, and nothing else. That is an engineering discipline with version control and tests, not a knack.
+
+**"Ask the AI to check its own work" is not a control.** It is widely deployed as one. Self-review without an external check produces agreement, and agreement reads as validation to anyone not watching for it. Real controls are tests, types, external sources, and human review at the points that matter.
+
+**Steering skills transfer; prompt libraries do not.** A team that understands why examples beat descriptions and why position matters carries that across model and vendor changes. A team with a folder of prompts tuned to one model's quirks re-does the work every upgrade. Invest in the first.
+</ForLeads>
+
+<Aside>
+The reason "you are an expert Python developer" style framing does anything at all is association, not roleplay. The tokens activate patterns learned from text written by and about expert developers, which shifts the distribution toward that register and its conventions. It is a real effect and a weak one — far weaker than showing an example of the code you want, which puts the target directly into the context instead of gesturing at it.
+</Aside>
+
+<Callout tone="warn" title="Everything in context is an example, including your instructions">
+A rambling system prompt does not merely waste tokens — it demonstrates rambling. A context full of failed attempts makes further failure more likely, because the model is predicting what follows failed attempts. When an agent gets stuck in a bad pattern, clearing the context often works better than any instruction to stop, because the instruction is competing against a whole conversation of evidence.
+</Callout>
+
+<SelfCheck
+  question="Why does showing two examples usually beat a paragraph describing what you want?"
+  hint="Ask what the model is conditioning on in each case."
+  answer="Examples land in the context as the thing itself, not as a description of it — the next tokens are conditioned on text that already has the properties you want. A description has to be interpreted into those properties first, and interpretation is where drift enters."
+/>
+
+<Lab
+  title="Test what actually steers"
+  goal="Compare four steering strategies on one real task and find out which moves output most, rather than assuming."
+  minutes={25}
+  successLooksLike="You can rank the four variants for your task by output quality, and at least one result contradicts what you expected before running it."
+>
+  <ol>
+    <li>Pick a real task with a judgeable output — a commit message, a schema, a summary in a house style.</li>
+    <li>Write four variants: (a) a bare instruction; (b) instruction plus a detailed description of the desired style; (c) instruction plus two examples and no description; (d) instruction plus examples plus an explicit "think through it first".</li>
+    <li>Run each three times on the same input. Keep everything else identical.</li>
+    <li>Rank the twelve outputs without looking at which variant produced them.</li>
+    <li>Compare cost: count output tokens for each variant. Variant (d) will be the most expensive — decide whether it earned it.</li>
+  </ol>
+</Lab>
+
+That closes the mechanics. You know what the model perceives, what it cannot do, how to get structured output from it, and how steering actually operates. The next module takes the one lever you have — what is in the context — and treats it as the engineering problem it is.

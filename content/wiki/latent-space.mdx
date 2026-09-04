@@ -1,0 +1,19 @@
+---
+term: Latent space
+slug: latent-space
+summary: "The high-dimensional representation a model computes over, where related concepts sit near each other. Useful as intuition, imprecise as description."
+analogy: "A map where nearness means relatedness — except there are thousands of directions and no compass."
+category: Mechanics
+relatedTerms: [Attention, Generalization]
+lessons: [w1.m01.b06]
+sources:
+  - url: https://arxiv.org/abs/1706.03762
+    title: Attention Is All You Need
+    publisher: Vaswani et al., arXiv
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+---
+
+The useful intuition: steering is **movement, not selection**. You are not choosing from a menu of behaviours; you are nudging a starting position, and nearby positions produce related-but-different output. That explains why small phrasing changes sometimes produce large shifts and large rewrites sometimes produce none.
+
+The imprecision worth knowing: there is no single latent space. There is a residual stream read and written by every layer, and the representation at layer 3 and layer 40 are different spaces. "The model's latent space" is a convenient fiction over a stack of them.

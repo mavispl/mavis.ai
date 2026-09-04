@@ -1,0 +1,13 @@
+---
+term: Model mixing
+slug: model-mixing
+summary: "Using several models within one system, each for the work it suits. Usually where real cost savings live — and real complexity."
+category: Cost
+relatedTerms: [Model routing, Prompt caching]
+lessons: [w1.m01.b04]
+verifiedOn: 2026-09-04
+---
+
+The saving is real and the accounting is subtle. Judge **cost per completed task, not per request**: a model at a third of the price that needs two attempts, more tool calls, or a human correction is not cheaper.
+
+Before building a cascade, measure the simpler alternative — the stronger model at lower effort. It often matches the cascade's quality at comparable cost, in one cache namespace, with a fraction of the moving parts.

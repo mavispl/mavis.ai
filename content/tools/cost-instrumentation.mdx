@@ -1,0 +1,82 @@
+---
+id: cost-instrumentation
+title: Instrumenting token usage before you need to
+slug: cost-instrumentation
+summary: Four numbers logged per request turn cost from a monthly surprise into an engineering signal. This is a half-day of work that pays for itself the first time a bill moves.
+category: observability
+order: 20
+sources:
+  - url: https://platform.claude.com/docs/en/about-claude/pricing
+    title: Pricing
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+  - url: https://platform.claude.com/docs/en/build-with-claude/context-windows
+    title: Context windows
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+volatility: high
+relatedLessons: [w1.m01.b04, w1.m01.b03]
+---
+
+Most teams discover their AI costs from an invoice. By then the question "what changed?"
+is archaeology. The fix is small and worth doing before you think you need it.
+
+## Log four numbers per request
+
+Every response reports what the request consumed. Record these separately — the aggregate
+is much less useful than the split:
+
+| Field | Why it matters separately |
+|---|---|
+| uncached input tokens | full price; the number a prefix fix reduces |
+| cache read tokens | typically a tenth of base input price; should dominate a healthy prefix |
+| cache write tokens | 1.25× base input for a short cache, 2× for a long one |
+| output tokens | usually several times the input rate; includes reasoning tokens |
+
+Tag each record with the model id, the route or feature, and the stop reason. Those three
+tags answer most questions you will later want to ask.
+
+## The one ratio to alert on
+
+**Cache read tokens as a fraction of total input.** If that fraction drops, something in
+your prefix started varying — a timestamp, a reordered tool list, a dynamically built
+system prompt. Nothing errors, output quality is unchanged, and cost rises several-fold.
+
+This is the single highest-value alert in an LLM system, because it is the only common
+failure that is invisible in every other signal.
+
+<Callout tone="key">
+Measure cost per **completed task**, not per request. A cheaper model that needs two
+attempts, more tool calls, or a human correction is not cheaper. Almost every naive cost
+comparison reverses when you divide by tasks that actually finished.
+</Callout>
+
+## Estimate before you send
+
+A token-counting endpoint tells you what a request will cost before it runs. Two uses
+worth wiring in:
+
+- **Guard rails.** Refuse or truncate a request that would exceed a threshold, rather than
+  discovering it in the response.
+- **Regression tests.** Assert that your standing prompt has not silently grown. Context
+  bloat accumulates one helpful addition at a time and nobody notices until it is
+  thousands of tokens.
+
+## Watch the costs that are not tokens
+
+A cost model built only from input and output rates is materially wrong for a tool-heavy
+agent. Server-side tools bill separately: web search at a per-search rate, code execution
+by container-hour, managed agent surfaces by session runtime. Regional or data-residency
+routing commonly adds around 10%, and premium fast tiers can double the token rate.
+
+Pull each of these into the same record as your token counts. A per-search charge that
+does not appear in your dashboard is a line item you will only meet on the invoice.
+
+## Re-baseline on every model change
+
+Token counts are not comparable across tokenizer generations — a vendor changing its
+tokenizer moved the same text approximately 30% higher in token count. Any budget,
+capacity plan, or "it fits in the window" calculation is specific to one tokenizer.
+
+Treat a model upgrade as a re-measurement, not a swap.

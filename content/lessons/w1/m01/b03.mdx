@@ -1,0 +1,159 @@
+---
+id: w1.m01.b03
+title: Confabulation, cutoffs, and the edges of the context window
+week: 1
+weekTitle: Core
+module: 1
+moduleTitle: Mechanics Behind Generative AI
+bullet: 3
+summary: A model's failures are not random noise — they are what the mechanics predict. Confident wrong answers, frozen knowledge, and degradation in long contexts each have a cause you can design around.
+personas: [junior, mid, senior, lead, cto]
+prerequisites: [w1.m01.b02, w1.m01.b01]
+related: [w1.m02.b02, w1.m01.b04]
+tags: [confabulation, hallucination, context-window, limits]
+defines: [Confabulation, Knowledge cutoff, Context window, Context rot, Output limit, Base knowledge]
+sources:
+  - url: https://arxiv.org/abs/2509.04664
+    title: Why Language Models Hallucinate
+    publisher: Kalai, Nachum, Vempala and Zhang — OpenAI and Georgia Tech, arXiv
+    accessedOn: 2026-09-04
+  - url: https://www.nature.com/articles/s41586-026-10549-w
+    title: Evaluating large language models for accuracy incentivizes hallucinations
+    publisher: Nature
+    accessedOn: 2026-09-04
+  - url: https://platform.claude.com/docs/en/build-with-claude/context-windows
+    title: Context windows
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+volatility: medium
+estMinutes: 14
+crashCourse: 3
+checks:
+  - q: Why does telling a model "do not hallucinate" have almost no effect?
+    a: Confabulation is not a behaviour the model chooses and could suppress; it is what next-token prediction produces when the distribution has no strongly supported continuation. Training and evaluation also reward a plausible guess over an abstention, so the incentive runs the other way. The fix is structural — give it the information, or give it a way to check.
+    hint: Ask whether the model can tell the difference between recalling and generating.
+  - q: Your agent works well for ten turns and gets noticeably worse by turn forty, with no change in task difficulty. What is the most likely cause?
+    a: Context rot. Accuracy and recall degrade as the window fills, so a long accumulated history of tool results and prior turns crowds out the signal. The fix is curation — compaction, clearing stale tool results, or restarting with a summary — not a larger window.
+  - q: What is the difference between the knowledge cutoff and the context window?
+    a: The cutoff is when the training data ends and is fixed for the life of the model. The context window is the working memory you fill on each request, and it is the only way to give the model anything the cutoff excluded.
+---
+
+Models fail in specific, predictable ways. That is genuinely good news: predictable failure can be designed around, while random failure cannot. Every limitation in this lesson follows from the mechanics in the previous one, and each has a structural mitigation that works better than asking the model to try harder.
+
+<Plainly>
+There is a difference between a model *remembering* something and a model *producing something that looks like a memory*. From the inside, there is no difference at all — both are the same operation, predicting a plausible next piece of text. The model has no way to check whether what it is producing corresponds to anything real.
+
+So when it does not know, it does not go quiet. It produces the most plausible-sounding thing, in exactly the same confident voice it uses when it is right. The confidence carries no information about the accuracy.
+</Plainly>
+
+## Confabulation, and why it is the correct word
+
+The industry says "hallucination", and popular writing often reaches for "illusions" — the model is supposedly seeing things that are not there. Both metaphors import a perceptual system the model does not have, and both quietly suggest a malfunction that could be repaired. <Term slug="confabulation">Confabulation</Term> is more accurate, and the distinction matters. A hallucination is a perception of something absent. Confabulation is the fluent, sincere production of false detail to fill a gap — with no awareness that a gap is being filled. That is exactly what the mechanics produce.
+
+This is not a mysterious emergent flaw. Recent work — *Why Language Models Hallucinate* (Kalai et al., 2025), with the peer-reviewed treatment in Nature in 2026 — argues that hallucination is a predictable statistical consequence of how models are trained and, crucially, how they are **evaluated**.
+
+The evaluation argument is the sharp one. Most benchmarks score binary: one point for a correct answer, zero for wrong, zero for "I don't know". Under that scheme, guessing strictly dominates abstaining. A model that says "I'm not sure" scores identically to one that is confidently wrong, and strictly worse than one that guesses and happens to be right. Models are optimised against these benchmarks. **We selected for confident guessing, and then expressed surprise at confident guessing.**
+
+<Callout tone="key">
+Confabulation is not the model failing at its job. It is the model doing exactly what it was trained and scored to do. Which is why prompt-level pleading ("be accurate", "don't make things up") produces so little — you are asking it to override an objective, using a channel that has no authority over that objective.
+</Callout>
+
+What actually works is structural: give the model the information rather than relying on recall, make it cite what it used so a claim is checkable, and give it an explicit, rewarded way to say the answer is not available.
+
+## Base knowledge and the cutoff
+
+Everything a model knows without being told comes from training. That is its <Term slug="base-knowledge">base knowledge</Term>, and it has two properties people underestimate.
+
+**It is frozen at the <Term slug="knowledge-cutoff">knowledge cutoff</Term>.** No amount of asking updates it. A model whose training ended before a library's version 3 will describe version 2's API fluently and confidently, and will not know it is doing so.
+
+**It is uneven.** Base knowledge is not a database with uniform coverage. Heavily-discussed topics are represented richly; a library with two hundred GitHub stars is represented thinly or not at all — but "thinly represented" does not produce silence, it produces confident invention. **The failure mode is worst exactly where you are most likely to be relying on it**: your niche, your internal conventions, the obscure tool you chose precisely because nobody else uses it.
+
+A model also does not reliably know its own cutoff. Asking it is not a check.
+
+## The context window
+
+The <Term slug="context-window">context window</Term> is the working memory — the only channel for anything the training data lacks. Everything in a request counts toward it: the system prompt, every message including tool results, images and documents, your tool definitions, and the output the model generates, including its internal reasoning tokens.
+
+Two edges are worth knowing precisely, because they behave differently:
+
+**Input over the limit fails loudly.** If the input alone exceeds the window, the API rejects the request with a 400. That is the good case — you find out immediately.
+
+**Generation reaching the limit fails quietly-ish.** On current models, a request whose input plus requested output could exceed the window is accepted, and if generation reaches the limit it stops with a distinct stop reason (`model_context_window_exceeded`). If your code does not check the stop reason, you get a truncated response that looks like a complete one. This is a real production failure: a JSON output cut off at 90% is not a parse error you notice, it is a parse error at 3am.
+
+<ForEngineers>
+Check `stop_reason` on every response, before you touch the content. It carries information nothing else does: `end_turn`, `max_tokens`, `tool_use`, `refusal`, `model_context_window_exceeded`. Treating a truncated response as complete is one of the most common — and most silent — bugs in LLM integrations.
+
+On <Term slug="output-limit">output limits</Term>: `max_tokens` is a hard ceiling the model is not aware of. It does not pace itself against it; it simply gets cut off mid-token. That has two consequences worth designing around:
+
+- **Lowballing `max_tokens` costs more than it saves.** Truncation forces a retry, and you pay for the truncated output too. For non-streaming requests a default around 16,000 keeps you under HTTP timeouts; for streaming, go higher.
+- **Very large outputs need streaming.** Current models support up to 128k output tokens, but a non-streaming request that large will hit transport timeouts before it finishes.
+
+On the window itself: prompt caching changes what you *pay* for a prefix, not whether it *counts*. Cached tokens still occupy the window. A cache hit at 10% of the input rate is a cost optimisation, never a capacity one.
+</ForEngineers>
+
+## Context rot: the limit that is not a limit
+
+A one-million-token window does not mean a million tokens of *usable* attention. Vendor documentation is unusually direct about this: as token count grows, accuracy and recall degrade — the effect is named **context rot** — which makes curating what is in the window as important as how much space remains.
+
+<Diagram
+  caption="Usable attention does not track window capacity. The gap between them is where agents quietly get worse."
+  alt="A chart with token count on the horizontal axis and effective accuracy on the vertical axis. A flat dashed line labelled window capacity runs across the top. A solid curve labelled effective accuracy starts high on the left, stays roughly level through the early part of the window, then bends downward and continues falling as tokens accumulate. The widening vertical gap between the two lines is labelled context rot."
+>
+  <svg viewBox="0 0 560 220" width="100%" height="220" role="img" aria-hidden="true">
+    <line x1="60" y1="30" x2="60" y2="175" stroke="var(--border-strong)" strokeWidth="1.25" />
+    <line x1="60" y1="175" x2="530" y2="175" stroke="var(--border-strong)" strokeWidth="1.25" />
+
+    <line x1="60" y1="45" x2="530" y2="45" stroke="var(--border-strong)" strokeWidth="1.25" strokeDasharray="5 4" />
+    <text x="524" y="38" textAnchor="end" fontSize="11" fill="var(--text-muted)">window capacity</text>
+
+    <path d="M60 52 C 170 55, 230 62, 300 88 S 430 148, 528 166"
+      fill="none" stroke="var(--primary)" strokeWidth="2" />
+    <text x="300" y="108" fontSize="11.5" fill="var(--primary)" fontWeight="600">effective accuracy</text>
+
+    <line x1="470" y1="45" x2="470" y2="158" stroke="var(--accent)" strokeWidth="1.25" />
+    <text x="462" y="128" textAnchor="end" fontSize="11" fill="var(--accent)" fontWeight="600">context rot</text>
+
+    <text x="295" y="200" textAnchor="middle" fontSize="11" fill="var(--text-muted)">tokens in context →</text>
+    <text x="26" y="105" fontSize="11" fill="var(--text-muted)" transform="rotate(-90 26 105)">quality</text>
+  </svg>
+</Diagram>
+
+This reframes a decision teams get wrong routinely. When an agent starts underperforming on long tasks, the instinct is to reach for a bigger window. The bigger window is usually the wrong lever — the problem is signal-to-noise inside the window, not capacity. The right moves are **compaction** (summarise earlier history server-side or yourself), **clearing stale tool results** (a directory listing from step three is dead weight at step forty), and **starting fresh with a written summary** when a task changes shape.
+
+<ForLeads>
+Three points that belong in a risk conversation, not an engineering one.
+
+**Confidence is not a signal, and your users will read it as one.** The model's tone is identical whether it is right or confabulating. Any workflow where a non-expert acts on model output without verification is one where the failure mode is a confident wrong answer that nobody questions. This is a product design problem — surface sources, show uncertainty, make verification the path of least resistance — not something to solve with a better prompt.
+
+**"It knows about our systems" is almost always false.** Base knowledge is thinnest exactly where your business is most specific. Anything about your internal architecture, your conventions, or your niche domain must be *supplied*, not recalled. A team that does not know this ships a system that invents your own APIs back to you.
+
+**Long-running agents degrade in a way that looks like flakiness.** An agent that is excellent for ten turns and mediocre by forty has not become unreliable at random — it is operating in a degraded region of its own context. Budget for context engineering as ongoing work. It is the difference between a demo and a system.
+</ForLeads>
+
+<Callout tone="danger" title="Don't rely on a model to tell you what it does not know">
+Asking "are you sure?" or "what is your knowledge cutoff?" produces plausible text, not introspection. The model has no privileged access to its own reliability — a confident "yes, I'm sure" is generated by the same process that produced the claim you are checking. Verify against a source, or give it a tool that can.
+</Callout>
+
+<SelfCheck
+  question="Why does telling a model 'do not hallucinate' have almost no effect?"
+  hint="Ask whether the model can tell the difference between recalling and generating."
+  answer="Confabulation is not a behaviour the model selects and could suppress — it is what next-token prediction produces when no continuation is strongly supported. Training and evaluation also reward a plausible guess over an abstention, so the incentive runs the other way. The fixes are structural: supply the information, make claims checkable, or give the model a tool that can verify."
+/>
+
+<Lab
+  title="Find your own model's edge"
+  goal="Locate the boundary where confident recall becomes confident invention, on a topic where you can actually judge the answer."
+  minutes={20}
+  successLooksLike="You have one example of a confidently stated, verifiably false claim about something in your own domain — and the same question answered correctly once you supplied the source."
+>
+  <ol>
+    <li>Pick something you know deeply and that is not widely written about: an internal system, a niche library, a recent release.</li>
+    <li>Ask for specifics — exact API signatures, configuration keys, version behaviour. Do not warn it, do not hedge the question.</li>
+    <li>Check every specific against the real source. Note which were right, which were subtly wrong, and which were invented outright.</li>
+    <li>Now paste the actual documentation into the context and ask the identical question.</li>
+    <li>Compare. The gap between those two answers is the value of context engineering, measured on your own domain rather than a benchmark.</li>
+  </ol>
+</Lab>
+
+These limits are not a list of disappointments. They are the design constraints. A system that assumes the model knows things will break in production; a system that assumes the model knows nothing and supplies what it needs will work — and the rest of this course is largely about how to supply it well.

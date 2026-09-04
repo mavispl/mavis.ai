@@ -1,0 +1,13 @@
+---
+term: Knowledge cutoff
+slug: knowledge-cutoff
+summary: "The date the training data ends. Fixed for the life of the model, and the model does not reliably know its own."
+category: Limits
+relatedTerms: [Base knowledge, Context window]
+lessons: [w1.m01.b03]
+verifiedOn: 2026-09-04
+---
+
+Nothing after the cutoff is in base knowledge, and nothing updates it. A model trained before a library's version 3 will describe version 2's API fluently and will not signal that it is doing so.
+
+Asking the model for its cutoff is not a check — the answer is generated, not introspected. The only remedy is the context window: supply current information rather than relying on recall.

@@ -1,0 +1,19 @@
+---
+term: Attention
+slug: attention
+summary: "The mechanism that lets each position in a sequence draw on every other position, weighted by learned relevance rather than uniformly."
+analogy: "Reading a page with some words in bold — except which words are bold is recomputed for every word you read."
+category: Mechanics
+relatedTerms: [Token, Context rot, Latent space]
+lessons: [w1.m01.b02, w1.m01.b06]
+sources:
+  - url: https://arxiv.org/abs/1706.03762
+    title: Attention Is All You Need
+    publisher: Vaswani et al., arXiv
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+---
+
+Each position produces a query; every position produces a key and a value. Queries are compared against keys, scores are normalised into weights, and the output is the weighted sum of values. Multiple heads do this in parallel with different learned projections.
+
+Three consequences matter in practice. Cost is **quadratic** in sequence length. Position is **not neutral** — the weighting over positions is learned, not uniform, which is the mechanism behind context rot. And there is **no privilege channel**: a system prompt is not marked as more authoritative in the mathematics than a document a tool fetched, which is why prompt injection is structural rather than a fixable bug.

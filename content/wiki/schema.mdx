@@ -1,0 +1,13 @@
+---
+term: Schema
+slug: schema
+summary: "The typed description of an object a model must produce — for a structured output or for a tool’s arguments."
+category: Tools
+relatedTerms: [Structured output, Function calling]
+lessons: [w1.m01.b05]
+verifiedOn: 2026-09-04
+---
+
+A schema does two jobs at once: it constrains generation, and it tells the model what is wanted. Both matter, which is why an overly permissive schema underperforms twice — you get a validated blob, and the model had less guidance about what to put in it.
+
+Push real structure in: enums for closed sets, arrays for repeats, nested objects for relationships, and explicit variants for "absent" and "unknown".

@@ -1,0 +1,290 @@
+/* ==========================================================================
+   MAVIS COURSE — DESIGN TOKENS
+   The single source of truth for colour, type, shape, elevation and motion.
+   Nothing in components/ may hard-code a colour; audit:a11y enforces this.
+
+   Position: between editorial ("human") design and Material Design 3.
+     From MD3      systematic tonal ramps, container/on-container pairs,
+                   state-layer opacities, a shape scale, a defined elevation
+                   ladder, 4pt spacing.
+     From editorial serif display voice, paper-toned surfaces (never #fff on
+                   #000), a generous 68ch measure, an asymmetric margin rail,
+                   restrained motion.
+     Deliberately not MD3: no ripple, no FAB, no filled tonal buttons, no Roboto.
+   ========================================================================== */
+
+/* ---------- 1. Reference palette: tonal ramps in OKLCH ------------------- */
+:root {
+  /* Primary — ink indigo. The voice of the course: considered, not corporate. */
+  --p-0:   oklch(0%    0     0);
+  --p-10:  oklch(20%   0.070 275);
+  --p-20:  oklch(28%   0.090 275);
+  --p-30:  oklch(36%   0.110 275);
+  --p-40:  oklch(45%   0.130 275);
+  --p-50:  oklch(54%   0.140 275);
+  --p-60:  oklch(63%   0.130 275);
+  --p-70:  oklch(72%   0.110 275);
+  --p-80:  oklch(81%   0.080 275);
+  --p-90:  oklch(90%   0.045 275);
+  --p-95:  oklch(95%   0.025 275);
+  --p-99:  oklch(99%   0.008 275);
+  --p-100: oklch(100%  0     0);
+
+  /* Accent — clay. Warmth, highlight, the human hand on the page. */
+  --a-10:  oklch(22%   0.050 60);
+  --a-20:  oklch(30%   0.070 60);
+  --a-30:  oklch(38%   0.090 60);
+  --a-40:  oklch(47%   0.110 60);
+  --a-50:  oklch(56%   0.130 60);
+  --a-60:  oklch(66%   0.140 62);
+  --a-70:  oklch(75%   0.125 65);
+  --a-80:  oklch(84%   0.100 70);
+  --a-90:  oklch(92%   0.060 75);
+  --a-95:  oklch(96%   0.030 75);
+
+  /* Neutral — warm grey. Chroma is never 0: paper, not screen. */
+  --n-0:   oklch(0%    0     0);
+  --n-6:   oklch(14%   0.006 70);
+  --n-10:  oklch(19%   0.007 70);
+  --n-17:  oklch(24%   0.008 70);
+  --n-20:  oklch(27%   0.008 70);
+  --n-24:  oklch(31%   0.009 70);
+  --n-30:  oklch(37%   0.009 70);
+  --n-40:  oklch(46%   0.010 70);
+  --n-45:  oklch(52%   0.010 70);  /* light text-faint: clears 4.5:1 on paper */
+  --n-50:  oklch(56%   0.010 70);
+  --n-55:  oklch(60%   0.009 70);  /* light border-strong: clears 3:1 on paper */
+  --n-60:  oklch(65%   0.010 70);
+  --n-70:  oklch(74%   0.009 70);
+  --n-80:  oklch(83%   0.008 70);
+  --n-87:  oklch(88%   0.007 70);
+  --n-90:  oklch(91%   0.006 70);
+  --n-92:  oklch(93%   0.006 70);
+  --n-94:  oklch(95%   0.005 70);
+  --n-96:  oklch(96.5% 0.005 70);
+  --n-98:  oklch(98%   0.004 70);
+  --n-100: oklch(100%  0     0);
+
+  /* Semantic hues — used only for status, never for decoration. */
+  --ok-40:   oklch(48% 0.110 150);
+  --ok-90:   oklch(92% 0.050 150);
+  --warn-40: oklch(52% 0.120 75);
+  --warn-90: oklch(93% 0.060 85);
+  --err-40:  oklch(48% 0.160 25);
+  --err-90:  oklch(92% 0.050 25);
+  --info-40: oklch(48% 0.100 230);
+  --info-90: oklch(92% 0.045 230);
+}
+
+/* ---------- 2. Semantic assignment: light (default) --------------------- */
+:root {
+  --bg:              var(--n-96);
+  --surface:         var(--n-98);
+  --surface-raised:  var(--n-100);
+  --surface-sunken:  var(--n-94);
+  --surface-inverse: var(--n-17);
+  --on-inverse:      var(--n-94);
+
+  --text:            var(--n-17);
+  --text-muted:      var(--n-40);
+  --text-faint:      var(--n-45);
+  --text-on-accent:  var(--n-100);
+
+  --border:          var(--n-87);
+  --border-strong:   var(--n-55);
+  --border-faint:    var(--n-92);
+
+  --primary:             var(--p-40);
+  --on-primary:          var(--n-100);
+  --primary-container:   var(--p-90);
+  --on-primary-container:var(--p-20);
+  --primary-hover:       var(--p-30);
+
+  --accent:              var(--a-40);
+  --on-accent:           var(--n-100);
+  --accent-container:    var(--a-90);
+  --on-accent-container: var(--a-20);
+
+  --ok:            var(--ok-40);
+  --ok-container:  var(--ok-90);
+  --warn:          var(--warn-40);
+  --warn-container:var(--warn-90);
+  --err:           var(--err-40);
+  --err-container: var(--err-90);
+  --info:          var(--info-40);
+  --info-container:var(--info-90);
+
+  --code-bg:     var(--n-94);
+  --code-border: var(--n-87);
+
+  --shadow-hue: 70;
+  --shadow-alpha: 0.10;
+
+  color-scheme: light;
+}
+
+/* ---------- 3. Semantic assignment: dark -------------------------------- */
+/* Explicit choice wins in both directions; system preference is the default. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg:              var(--n-6);
+    --surface:         var(--n-10);
+    --surface-raised:  var(--n-17);
+    --surface-sunken:  var(--n-0);
+    --surface-inverse: var(--n-92);
+    --on-inverse:      var(--n-17);
+
+    --text:            var(--n-92);
+    --text-muted:      var(--n-70);
+    --text-faint:      var(--n-60);
+
+    --border:          var(--n-24);
+    --border-strong:   var(--n-45);
+    --border-faint:    var(--n-20);
+
+    --primary:             var(--p-80);
+    --on-primary:          var(--p-20);
+    --primary-container:   var(--p-30);
+    --on-primary-container:var(--p-90);
+    --primary-hover:       var(--p-90);
+
+    --accent:              var(--a-80);
+    --on-accent:           var(--a-20);
+    --accent-container:    var(--a-30);
+    --on-accent-container: var(--a-90);
+
+    --ok:            oklch(80% 0.110 150);
+    --ok-container:  oklch(32% 0.070 150);
+    --warn:          oklch(84% 0.110 85);
+    --warn-container:oklch(34% 0.070 75);
+    --err:           oklch(78% 0.120 25);
+    --err-container: oklch(32% 0.090 25);
+    --info:          oklch(80% 0.080 230);
+    --info-container:oklch(32% 0.070 230);
+
+    --code-bg:     var(--n-10);
+    --code-border: var(--n-24);
+
+    --shadow-alpha: 0.45;
+
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg:              var(--n-6);
+  --surface:         var(--n-10);
+  --surface-raised:  var(--n-17);
+  --surface-sunken:  var(--n-0);
+  --surface-inverse: var(--n-92);
+  --on-inverse:      var(--n-17);
+
+  --text:            var(--n-92);
+  --text-muted:      var(--n-70);
+  --text-faint:      var(--n-60);
+
+  --border:          var(--n-24);
+  --border-strong:   var(--n-45);
+  --border-faint:    var(--n-20);
+
+  --primary:             var(--p-80);
+  --on-primary:          var(--p-20);
+  --primary-container:   var(--p-30);
+  --on-primary-container:var(--p-90);
+  --primary-hover:       var(--p-90);
+
+  --accent:              var(--a-80);
+  --on-accent:           var(--a-20);
+  --accent-container:    var(--a-30);
+  --on-accent-container: var(--a-90);
+
+  --ok:            oklch(80% 0.110 150);
+  --ok-container:  oklch(32% 0.070 150);
+  --warn:          oklch(84% 0.110 85);
+  --warn-container:oklch(34% 0.070 75);
+  --err:           oklch(78% 0.120 25);
+  --err-container: oklch(32% 0.090 25);
+  --info:          oklch(80% 0.080 230);
+  --info-container:oklch(32% 0.070 230);
+
+  --code-bg:     var(--n-10);
+  --code-border: var(--n-24);
+
+  --shadow-alpha: 0.45;
+
+  color-scheme: dark;
+}
+
+/* ---------- 4. Type, shape, elevation, motion, layout ------------------- */
+:root {
+  /* Voice: a characterful serif for display, humanist sans for reading. */
+  --font-display: var(--font-fraunces), 'Iowan Old Style', Georgia, serif;
+  --font-body:    var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    var(--font-mono-face), ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Type scale — 1.25 major-third above body, tightened at the top. */
+  --text-display-lg: 3.25rem;  --lh-display-lg: 1.06;
+  --text-display-md: 2.5rem;   --lh-display-md: 1.10;
+  --text-display-sm: 2rem;     --lh-display-sm: 1.15;
+  --text-headline:   1.625rem; --lh-headline:   1.22;
+  --text-title-lg:   1.3125rem;--lh-title-lg:   1.30;
+  --text-title:      1.0625rem;--lh-title:      1.40;
+  --text-body-lg:    1.0625rem;--lh-body-lg:    1.70;
+  --text-body:       0.9375rem;--lh-body:       1.60;
+  --text-small:      0.8125rem;--lh-small:      1.50;
+  --text-label:      0.75rem;  --lh-label:      1.35;
+
+  --tracking-display: -0.02em;
+  --tracking-label:    0.06em;
+
+  /* Shape scale */
+  --radius-none: 0;
+  --radius-xs:   0.25rem;
+  --radius-sm:   0.5rem;
+  --radius-md:   0.75rem;
+  --radius-lg:   1rem;
+  --radius-xl:   1.75rem;
+  --radius-full: 999px;
+
+  /* Spacing — 4pt grid */
+  --space-1: 0.25rem; --space-2: 0.5rem;  --space-3: 0.75rem;
+  --space-4: 1rem;    --space-5: 1.5rem;  --space-6: 2rem;
+  --space-7: 3rem;    --space-8: 4rem;    --space-9: 6rem;
+
+  /* Elevation ladder — warm-tinted, two-layer, never pure black */
+  --elev-0: none;
+  --elev-1: 0 1px 2px oklch(20% 0.01 var(--shadow-hue) / var(--shadow-alpha));
+  --elev-2: 0 1px 2px oklch(20% 0.01 var(--shadow-hue) / var(--shadow-alpha)),
+            0 2px 6px oklch(20% 0.01 var(--shadow-hue) / calc(var(--shadow-alpha) * 0.7));
+  --elev-3: 0 2px 4px oklch(20% 0.01 var(--shadow-hue) / var(--shadow-alpha)),
+            0 6px 16px oklch(20% 0.01 var(--shadow-hue) / calc(var(--shadow-alpha) * 0.8));
+  --elev-4: 0 4px 8px oklch(20% 0.01 var(--shadow-hue) / var(--shadow-alpha)),
+            0 12px 32px oklch(20% 0.01 var(--shadow-hue) / calc(var(--shadow-alpha) * 0.9));
+
+  /* State layers — MD3 opacities, applied as colour-mix over the base */
+  --state-hover:   0.08;
+  --state-focus:   0.10;
+  --state-pressed: 0.12;
+
+  /* Motion — short and unshowy; the reader is here to read */
+  --dur-instant: 90ms;
+  --dur-short:   160ms;
+  --dur-medium:  240ms;
+  --dur-long:    400ms;
+  --ease-standard:  cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized:cubic-bezier(0.2, 0, 0, 1.15);
+  --ease-exit:      cubic-bezier(0.3, 0, 1, 1);
+
+  /* Layout — the asymmetric lesson grid */
+  --measure:      68ch;   /* prose column */
+  --rail-width:   17rem;  /* margin rail: asides, sources, progress */
+  --sidebar-width:16.5rem;
+  --header-height:3.5rem;
+  --content-max:  84rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-instant: 0ms; --dur-short: 0ms; --dur-medium: 0ms; --dur-long: 0ms;
+  }
+}

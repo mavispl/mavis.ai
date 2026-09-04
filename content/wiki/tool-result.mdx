@@ -1,0 +1,19 @@
+---
+term: Tool result
+slug: tool-result
+summary: "The output of an executed tool, appended to the conversation as ordinary context with no privilege marker."
+analogy: "A note slipped into the same folder as your instructions, in the same handwriting."
+category: Tools
+relatedTerms: [Tool call, Context window]
+lessons: [w1.m01.b01, w1.m01.b05]
+sources:
+  - url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview
+    title: Tool use overview
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+---
+
+Two properties do most of the work. **Results are context**, so their size is a cost — a tool returning 4,000 lines has technically succeeded and practically failed. And results are **untrusted input**: content a tool fetched sits alongside your instructions with nothing marking which is which, which is the entire basis of prompt injection.
+
+Errors are results too. A failed tool returns a result flagged as an error with a message the model can act on; dropping it leaves an unresolved call and usually triggers a retry loop.

@@ -1,0 +1,13 @@
+---
+term: Completion
+slug: completion
+summary: "The text a model generates in response to an input. The model continues a sequence; it does not answer a question in any other sense."
+category: Mechanics
+relatedTerms: [Token, Autoregressive]
+lessons: [w1.m01.b01]
+verifiedOn: 2026-09-04
+---
+
+The name is a leftover from an earlier API shape and it is more honest than "response". The operation is continuation: given these tokens, produce likely following tokens.
+
+Chat-shaped APIs hide this behind roles and messages, but the underlying operation has not changed — the messages are serialised into one sequence and the model continues it.

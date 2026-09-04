@@ -1,0 +1,20 @@
+---
+term: Structured output
+slug: structured-output
+aliases: [Structured outputs, Constrained decoding]
+summary: "Constraining generation against a schema so the response is a valid instance rather than something that merely resembles one."
+analogy: "A form with typed fields, not a blank page with instructions about what to write."
+category: Tools
+relatedTerms: [Schema, Function calling]
+lessons: [w1.m01.b05]
+sources:
+  - url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview
+    title: Tool use overview
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+---
+
+The difference from asking for JSON in a prompt is enforcement. A prompt is a request the model usually honours; a schema constraint is a guarantee about shape. Prompt-based parsing fails intermittently — a preamble, a code fence, a trailing comma — and those failures cluster on unusual inputs.
+
+Schema design decides how the model fails. A required field the source document does not contain forces an invention; make it optional or add an explicit absence variant, and an invented value becomes a correct "not found".

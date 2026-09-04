@@ -1,0 +1,18 @@
+---
+term: Effort
+slug: effort
+summary: "A control that trades thoroughness against token spend within a single model. Often a better first move than switching models."
+category: Cost
+relatedTerms: [Reasoning tokens, Model routing]
+lessons: [w1.m01.b04]
+sources:
+  - url: https://platform.claude.com/docs/en/about-claude/pricing
+    title: Pricing
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+---
+
+Lower effort on a strong current model frequently matches or beats a previous-generation model at high effort, and keeps you in one cache namespace.
+
+Which workloads repay higher effort is a property of the workload, not a universal setting: coding and long-horizon agentic work respond strongly; chat and high-volume classification often do not. Tune per route, on a sample of real requests, rather than globally.

@@ -1,0 +1,49 @@
+{
+  "name": "mavis-course",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "velite --watch & next dev",
+    "content": "velite",
+    "build": "velite --clean && next build && pnpm run index",
+    "index": "pagefind --site out --output-path out/pagefind",
+    "start": "npx serve out",
+    "typecheck": "tsc --noEmit",
+    "audit:schema": "tsx scripts/audit-schema.ts",
+    "audit:graph": "tsx scripts/audit-graph.ts",
+    "audit:a11y": "tsx scripts/audit-a11y.ts",
+    "audit:all": "tsx scripts/audit-all.ts",
+    "map": "tsx scripts/build-map.ts",
+    "wiki": "tsx scripts/gen-wiki.ts"
+  },
+  "dependencies": {
+    "@radix-ui/react-accordion": "^1.2.11",
+    "@radix-ui/react-dialog": "^1.1.14",
+    "@radix-ui/react-tabs": "^1.1.12",
+    "@radix-ui/react-tooltip": "^1.2.7",
+    "next": "^15.5.4",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.13",
+    "@types/node": "^24.5.2",
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9",
+    "axe-core": "^4.10.3",
+    "mermaid": "^11.12.0",
+    "pagefind": "^1.4.0",
+    "playwright": "^1.55.0",
+    "rehype-autolink-headings": "^7.1.0",
+    "rehype-pretty-code": "^0.14.1",
+    "rehype-slug": "^6.0.0",
+    "remark-gfm": "^4.0.1",
+    "shiki": "^3.13.0",
+    "tailwindcss": "^4.1.13",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.2",
+    "velite": "^0.3.0"
+  },
+  "packageManager": "pnpm@11.24.0"
+}

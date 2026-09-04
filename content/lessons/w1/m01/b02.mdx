@@ -1,0 +1,137 @@
+---
+id: w1.m01.b02
+title: "Tokens, prediction, and attention: what happens to your prompt"
+week: 1
+weekTitle: Core
+module: 1
+moduleTitle: Mechanics Behind Generative AI
+bullet: 2
+summary: Your text becomes tokens, each token becomes a prediction over the next one, and attention decides which earlier tokens get a say. Almost every "weird" model behaviour follows from those three steps.
+personas: [junior, mid, senior, lead, cto]
+prerequisites: [w1.m01.b01]
+related: [w1.m01.b03, w1.m01.b06]
+tags: [tokenization, attention, prediction, foundations]
+defines: [Token, Byte-pair encoding, Attention, Autoregressive, Instruction following]
+sources:
+  - url: https://arxiv.org/abs/1706.03762
+    title: Attention Is All You Need
+    publisher: Vaswani et al., arXiv
+    accessedOn: 2026-09-04
+  - url: https://arxiv.org/abs/2508.04796
+    title: "Parity-Aware Byte-Pair Encoding: Improving Cross-lingual Fairness in Tokenization"
+    publisher: Foroutan et al., arXiv
+    accessedOn: 2026-09-04
+  - url: https://platform.claude.com/docs/en/about-claude/pricing
+    title: Pricing — tokenizer note
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+volatility: low
+estMinutes: 16
+crashCourse: 2
+checks:
+  - q: Why can the same sentence cost noticeably different amounts in two languages?
+    a: The merge table is learned from a training corpus that is mostly English, so English text compresses into fewer, longer tokens. Other scripts fall back to shorter, more numerous tokens — more tokens for the same meaning, and tokens are the billing and latency unit.
+    hint: Think about what the vocabulary was fitted to.
+  - q: A model insists "strawberry" has two r's. What in the mechanics explains this?
+    a: The model never sees letters. The word arrives as one or two token ids, and the spelling is not recoverable from the id itself — only from whatever the model learned about that token during training. Character-level questions ask about information the input representation discarded.
+  - q: Why does moving an instruction from the middle of a long document to the end often change the result?
+    a: Attention is a learned weighting over positions, not a uniform read. Position affects how strongly a token influences the next prediction, so the same words placed differently produce different distributions.
+---
+
+Three mechanical steps sit between your prompt and the model's answer: your text is cut into **tokens**, the model predicts **one token at a time**, and **attention** decides which earlier tokens influence each prediction. Nearly every behaviour that seems arbitrary — the spelling failures, the cost differences between languages, the way instruction placement changes results — is a direct consequence of one of those three.
+
+<Plainly>
+A model does not read words. Before anything happens, your text is chopped into pieces called tokens — sometimes a whole word, often a fragment, occasionally a single character. Each piece is swapped for a number. The model only ever sees the numbers.
+
+Then it works one piece at a time. It looks at everything so far and produces a ranked guess at what comes next, picks one, adds it to the end, and repeats. There is no plan for the sentence, no outline it is filling in. The fluency is real; the forward planning you imagine behind it is not.
+</Plainly>
+
+## Step one: tokenization
+
+A <Term slug="token">token</Term> is the unit the model actually operates on. Modern models use <Term slug="byte-pair-encoding">byte-pair encoding</Term> or a close relative: starting from raw bytes, the most frequent adjacent pair is merged into a new vocabulary entry, repeatedly, until the vocabulary reaches its target size. The result is a **merge table** — a fixed list of which byte sequences collapse into single tokens.
+
+Two properties of that table cause most of the practical consequences.
+
+**It is frozen at training time.** The merge table is learned once, over the training corpus, and never adapts to your input. Text that looks nothing like the training data — minified code, base64, unusual identifiers — fragments into many short tokens, because no merge rule ever covered it.
+
+**It was fitted to a corpus that was mostly English.** So English compresses well, into long dense tokens, and other scripts do not. Research on cross-lingual tokenization fairness measures this directly, using the Gini coefficient of per-language token cost; the parity-aware method in that work reduces the inequality by up to 89% relative to classical BPE, which is only a meaningful number because the baseline inequality is large. The practical shape: the same meaning, expressed in Japanese, Chinese, or Korean, can approach one token per character, while its English equivalent runs closer to one token per four characters.
+
+Since providers bill per token and latency scales with token count, **this is not an academic point — it is a line on the invoice.** A product serving Polish or Japanese users pays a tokenizer tax that its English-only competitor does not.
+
+<Callout tone="key">
+A token is not a stable unit, even within one vendor. Anthropic's documentation states that Claude 4.7 and later use a newer tokenizer producing approximately 30% more tokens for the same text than earlier models. Any token budget, cost model, or "fits in the window" calculation is specific to one tokenizer and does not survive a model change.
+</Callout>
+
+## Step two: prediction
+
+The model is <Term slug="autoregressive">autoregressive</Term>. Given the tokens so far, it produces a probability distribution over the entire vocabulary for the next token. One is selected, appended, and the whole sequence is fed back in. Repeat until a stop condition. The accumulated result is the <Term slug="completion">completion</Term> — a name inherited from an earlier API shape, and a more honest one than "response", because the operation really is continuation rather than answering.
+
+This is worth sitting with, because it contradicts the intuition fluent text creates. When a model writes a well-structured argument, it did not outline the argument and then write it. Each token was chosen given everything before it — and the reason the result is coherent is that "a token that continues a coherent argument" is exactly what the distribution favours after a coherent opening.
+
+Which yields a genuinely useful heuristic: **the beginning of a response constrains the rest of it far more than the prompt does.** Once the first sentence commits to a direction, every subsequent token is conditioned on that commitment. This is why asking a model to reason before answering changes its answers — not because it is "thinking harder", but because it has placed relevant tokens into the sequence that later predictions can condition on.
+
+## Step three: attention
+
+<Term slug="attention">Attention</Term> is how earlier tokens get a say in the current prediction. The Transformer architecture, introduced in *Attention Is All You Need* (Vaswani et al., 2017), dispensed with recurrence and convolution entirely and relies on attention alone to relate positions in a sequence.
+
+Mechanically: for each position, the model computes a query, and every position computes a key and a value. The query is compared against all keys, the scores are normalised into weights, and the output is the weighted sum of values. Every position can, in principle, look at every other position — but it looks at them *unevenly*, and how unevenly is learned.
+
+<ForEngineers>
+The heads are the part worth internalising. Attention is multi-head: several independent query/key/value projections run in parallel, each learning a different relation — one head tracking syntactic dependency, another matching quotes to speakers, another doing something no one has a clean name for. Their outputs are concatenated and projected.
+
+Three consequences that show up in practice:
+
+**Cost is quadratic in sequence length.** Every position attending to every other position is an n² operation. Long-context serving is largely a story of engineering around that — sparse patterns, sliding windows, KV caching, and paged attention. It is also why long-context requests are slower per token, not just more expensive.
+
+**Position is not neutral.** Positional information is injected explicitly, and the attention distribution over positions is learned rather than uniform. Empirically this produces measurable non-uniformity across the window — which is the mechanism behind what Anthropic's own documentation calls *context rot*: as token count grows, accuracy and recall degrade. More context is not automatically better. Where you put something matters, and the effect is large enough to design around.
+
+**There is no privilege channel.** Attention operates over token embeddings. A system prompt is not marked in the mathematics as more authoritative than a document your tool fetched thirty turns ago; whatever priority instructions have comes from training and from formatting conventions the model learned to respect, not from the architecture. This is precisely why prompt injection is a structural problem rather than a bug awaiting a patch.
+</ForEngineers>
+
+## Instruction following is learned, not built in
+
+Nothing described so far explains why a model does what you ask. Next-token prediction over web text would produce a model that continues your instruction rather than obeying it — given "Write a poem about rain," the most likely continuation of that string in the wild is another line of instructions.
+
+<Term slug="instruction-following">Instruction following</Term> is a learned behaviour, added after pre-training through fine-tuning on instruction-response pairs and preference optimisation. It is a strong, reliable behaviour, and it is still a statistical tendency rather than a guarantee. Two things follow: instructions phrased like the training distribution work better than clever ones, and instruction following can be *outcompeted* by a strong enough pattern elsewhere in the context — which is, again, the mechanism behind injection.
+
+<ForLeads>
+Three things from this page carry budget and risk implications.
+
+**Token cost is a function of language and content, not just volume.** If your product serves non-English users, or handles code, logs, or structured data, your cost per unit of value differs from the naive per-token estimate — sometimes by two to three times. Model any non-English workload with real text before committing to a price.
+
+**Token budgets do not survive model upgrades.** A vendor changing its tokenizer moved the same text ~30% higher in token count. Any capacity planning expressed in tokens is specific to a tokenizer generation. Plan in units of *work completed*, and re-baseline on every model change.
+
+**Context is a scarce resource with declining returns, not a container to fill.** Because accuracy degrades as the window grows, "just put everything in the context" is both the most expensive strategy and, past a point, the least accurate. Teams that treat context curation as an engineering discipline get better results at lower cost than teams that treat a large window as permission to stop thinking about it.
+</ForLeads>
+
+<Aside>
+Whitespace usually attaches to the *following* token, so `" the"` and `"the"` are different tokens with different ids. This is why a trailing space in a prompt can change output in ways that look superstitious until you have looked at the token ids — and why prompt formatting advice that seems like folklore sometimes has a mechanical explanation underneath.
+</Aside>
+
+<Callout tone="warn" title="Character-level tasks are asking about discarded information">
+Counting letters, reversing strings, checking whether a word contains a substring, precise character arithmetic — these ask about structure the tokenizer removed before the model saw anything. The model can sometimes answer from memorised facts about a token, but it is not inspecting the characters, because it does not have them. Use a tool for character-level work; do not prompt harder.
+</Callout>
+
+<SelfCheck
+  question="Why can the same sentence cost noticeably different amounts in two languages?"
+  hint="Think about what the vocabulary was fitted to."
+  answer="The merge table is learned from a corpus that is mostly English, so English compresses into fewer, longer tokens. Other scripts fall back to shorter, more numerous tokens — more tokens for the same meaning, and tokens are both the billing unit and the latency unit."
+/>
+
+<Lab
+  title="Measure your own token ratios"
+  goal="Replace your intuition about text length with a measured token-per-word ratio for the text you actually send, in at least two languages."
+  minutes={15}
+  successLooksLike="You have three numbers — characters, words, tokens — for the same paragraph in two languages, and the token-per-word ratio differs measurably between them."
+>
+  <ol>
+    <li>Take a paragraph you genuinely sent to a model this week. Not a sample — real input.</li>
+    <li>Count its characters and words with whatever you have to hand.</li>
+    <li>Count its tokens with a token-counting endpoint or a local tokenizer for the model you actually use.</li>
+    <li>Translate the same paragraph into another language, ideally a non-Latin script, and repeat.</li>
+    <li>Compute tokens per word for both. Then compute what a million requests would cost at each ratio.</li>
+  </ol>
+</Lab>
+
+Tokenization explains what the model can perceive. Attention explains what it weighs. Prediction explains why it is fluent without being deliberate. The next lesson takes the same mechanics and asks the harder question: given all this, what is it structurally incapable of, no matter how well you ask?

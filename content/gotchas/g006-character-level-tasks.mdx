@@ -1,0 +1,33 @@
+---
+id: g006
+title: Don't ask a model to do character-level work
+slug: character-level-tasks
+category: Prompt Engineering & Reliability
+severity: medium
+whatGoesWrong: >
+  Counting letters, reversing strings, checking substrings, or precise character
+  arithmetic produce confidently wrong answers, and prompting harder does not fix them.
+whyItHappens: >
+  Text is segmented into tokens before the model sees anything, and each token is an
+  integer id. The characters are not recoverable from the id — only whatever the model
+  learned about that token during training. These questions ask about information the
+  input representation discarded.
+howToDetect: >
+  Any task whose correctness depends on individual characters rather than meaning:
+  spelling checks, character counts, string manipulation, exact format validation of
+  identifiers.
+fix: >
+  Use a tool. A three-line function counts characters correctly every time and costs
+  nothing. This is the general shape of the fix for a whole class of problems — give the
+  model a deterministic tool rather than asking it to simulate one.
+relatedLessons: [w1.m01.b02]
+sources:
+  - url: https://arxiv.org/abs/2508.04796
+    title: Parity-Aware Byte-Pair Encoding
+    publisher: Foroutan et al., arXiv
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+---
+
+Worth internalising as a category rather than a list: if the answer depends on structure
+the tokenizer removed, no amount of prompting recovers it.

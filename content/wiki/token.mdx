@@ -1,0 +1,19 @@
+---
+term: Token
+slug: token
+summary: "The unit a model actually operates on — usually a word fragment, not a word or a character. It is also the unit you are billed in."
+analogy: "Not the letters and not the words, but the pieces a very particular scissors happens to cut text into."
+category: Mechanics
+relatedTerms: [Byte-pair encoding, Context window]
+lessons: [w1.m01.b02]
+sources:
+  - url: https://platform.claude.com/docs/en/about-claude/pricing
+    title: Pricing
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+---
+
+Text is segmented into tokens before the model sees anything, and each token becomes an integer id. The model never sees characters, which is why letter-counting and string-reversal questions fail: they ask about information the input representation discarded.
+
+A token is **not a stable unit**. Segmentation depends on the tokenizer, and tokenizers change: Anthropic's documentation states that Claude 4.7 and later produce approximately 30% more tokens for the same text than earlier models. Any budget or capacity plan expressed in tokens is specific to one tokenizer generation.

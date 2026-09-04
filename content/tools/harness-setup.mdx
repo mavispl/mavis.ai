@@ -1,0 +1,125 @@
+---
+id: harness-setup
+title: "Setting up a harness: the four things to configure"
+slug: harness-setup
+summary: Every AI coding harness configures the same four things under different names. Get these right once and the vocabulary of any particular product becomes a lookup rather than a learning curve.
+category: harness
+order: 10
+sources:
+  - url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview
+    title: Tool use overview
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+  - url: https://platform.claude.com/docs/en/about-claude/pricing
+    title: Pricing — tool use pricing
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+volatility: high
+relatedLessons: [w1.m01.b01, w1.m01.b04]
+---
+
+Harnesses differ in vocabulary and agree in structure. All of them configure **model**,
+**context**, **tools**, and **authority**. This page is the checklist for those four, in
+the order that matters.
+
+<Callout tone="warn" title="Exact paths change; the structure does not">
+Config file locations and flag names move between releases of every one of these
+products. Treat the paths below as orientation and confirm against the product's own
+documentation — that is exactly what the freshness date at the top of this page is for.
+</Callout>
+
+## 1. Model
+
+Set it in one place, read from configuration, and never inline a model id in more than
+one file. Models are retired and superseded on a timescale of months; a codebase with
+model strings scattered through it turns a config change into archaeology.
+
+Two settings worth deciding deliberately rather than inheriting:
+
+- **Effort or reasoning depth**, where the model exposes it. Lower effort on a strong
+  current model often beats a previous-generation model at high effort, and it is the
+  cheapest quality lever you have.
+- **Which model handles which work.** A single default across an organisation optimises
+  for procurement convenience against engineering outcomes.
+
+## 2. Context
+
+The standing instructions sent with every request. This is the highest-leverage file in
+your setup and the one most often written once and never revisited.
+
+Two things to check today:
+
+**Read it out loud.** Everything in it is in your context window on every call, and you
+are paying for it every time. More importantly, it is an *example* of the writing you
+want back — a rambling, unfocused standing prompt demonstrates rambling and unfocused.
+
+**Check what is loaded automatically.** Most harnesses pull in project files, recent
+history, or repository metadata without being asked. Find out what, because that is
+context you did not choose and are paying for.
+
+<HarnessTabs>
+  <Harness name="Claude Code">
+    Project instructions live in a `CLAUDE.md` at the repository root, with additional
+    configuration under `.claude/`. Nested `CLAUDE.md` files apply to their subtree.
+  </Harness>
+  <Harness name="Cursor">
+    Rules are configured per workspace in project settings, with project-level rule files
+    checked into the repository.
+  </Harness>
+  <Harness name="Generic / API">
+    If you are calling an API directly, this is your `system` parameter plus whatever your
+    code prepends to `messages`. The same rules apply, and you have more control over
+    ordering — put stable content first so it caches.
+  </Harness>
+</HarnessTabs>
+
+## 3. Tools
+
+Enumerate what is actually available. Most people are surprised by the list.
+
+Then apply two filters:
+
+**Is it earning its tokens?** Every tool definition — name, description, JSON schema — is
+serialised into every request. The API also adds a tool-use system prompt of a few hundred
+tokens before your own definitions. Forty declared tools is forty definitions on every
+single call, whether or not any are used.
+
+**Is the description written for the model?** A description reading like API reference
+("Queries the user table") gets used at the wrong times or not at all. One reading like
+instruction ("Look up a user's subscription by email. Use this before answering any
+billing question. Returns null if no account exists") gets used correctly. The most common
+cause of "the agent ignored the tool" is a description written for a human.
+
+## 4. Authority
+
+What the harness may do without asking. This is a permissions review, and it deserves the
+same seriousness as any other.
+
+For each tool, answer three questions:
+
+1. **What can it read?** Anything it reads can enter the context window, and anything in
+   the context window can influence behaviour.
+2. **What can it change?** Distinguish reversible from irreversible. A file edit in a git
+   working tree is reversible; a network call that sends an email is not.
+3. **Whose credentials does it use?** A tool running with your full ambient credentials
+   grants the model your full access, mediated only by its own judgement.
+
+<Callout tone="danger" title="Approval fatigue is a security failure mode">
+A harness that asks about everything trains you to approve without reading, which is worse
+than a narrower set of permissions granted deliberately. Configure the safe operations to
+run without prompting so that the prompts you do see still carry information.
+</Callout>
+
+## Verifying the setup
+
+Four checks, in order. Each one should take a minute.
+
+1. **Ask the harness to describe its own configuration.** Compare its answer with the
+   files. Disagreements are usually a config that is not being loaded from where you think.
+2. **Look at one real request's token usage.** Split it into system prompt, tool
+   definitions, and conversation. If tool definitions are a large fraction, prune.
+3. **Check cache reads are non-zero** across repeated requests. Zero means an invalidator
+   in your prefix, and you are paying full price silently.
+4. **Try something that should be refused.** Confirm the boundary exists rather than
+   assuming it.

@@ -1,0 +1,19 @@
+---
+term: Function calling
+slug: function-calling
+aliases: [Tool calling]
+summary: "The pattern where a model requests an operation and your code performs it, returning the outcome into the conversation."
+category: Tools
+relatedTerms: [Tool call, Tool result, Native tool]
+lessons: [w1.m01.b05]
+sources:
+  - url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview
+    title: Tool use overview
+    publisher: Anthropic
+    accessedOn: 2026-09-04
+verifiedOn: 2026-09-04
+---
+
+The tool's **description is a prompt**, not documentation — it is the only thing telling the model when to reach for it. Descriptions written like API reference get used at the wrong times or not at all.
+
+Granularity is a genuine tradeoff: narrow tools are unambiguous and safe but burn input tokens on every request forever; one broad tool is cheap in context and grants more authority. Both are defensible. Drifting into forty narrow tools without deciding is not.

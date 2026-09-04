@@ -1,0 +1,28 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "course-dev",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "next",
+        "dev",
+        "--port",
+        "3111"
+      ],
+      "port": 3111
+    },
+    {
+      "name": "course-static",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "3222",
+        "--directory",
+        "out"
+      ],
+      "port": 3222
+    }
+  ]
+}
